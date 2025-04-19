@@ -8,15 +8,24 @@ import {
 @Controller('health')
 export class HealthController {
   constructor(
-    private health: HealthCheckService,
-    private http: HttpHealthIndicator,
+    private readonly health: HealthCheckService,
+    private readonly http: HttpHealthIndicator,
   ) {}
 
   @Get()
   @HealthCheck()
-  checkHTTP() {
+  check() {
     return this.health.check([
-      () => this.http.pingCheck('nestjs-docs', 'https://docs.nestjs.com'),
+      () =>
+        this.http.pingCheck(
+          'boss-macros',
+          process.env.BASE_URL ?? 'http://localhost:3000' + '/boss-macros',
+        ),
+      () =>
+        this.http.pingCheck(
+          'crafting-macros',
+          process.env.BASE_URL ?? 'http://localhost:3000' + '/crafting-macros',
+        ),
     ]);
   }
 }
