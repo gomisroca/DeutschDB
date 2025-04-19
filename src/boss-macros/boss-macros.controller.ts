@@ -8,37 +8,53 @@ import {
   Delete,
 } from '@nestjs/common';
 import { BossMacrosService } from './boss-macros.service';
-import { Prisma } from '@prisma/client';
+import { BossMacro } from '@prisma/client';
 
 @Controller('boss-macros')
 export class BossMacrosController {
   constructor(private readonly bossMacrosService: BossMacrosService) {}
 
-  @Post()
-  create(@Body() data: Prisma.BossMacroCreateInput) {
-    return this.bossMacrosService.create(data);
+  @Get(':id')
+  findOne(@Param('id') id: string): Promise<BossMacro | null> {
+    return this.bossMacrosService.findOne({ id });
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<BossMacro[]> {
     return this.bossMacrosService.findAll({});
   }
 
-  @Get(':id')
-  findOne(@Param('id') where: Prisma.BossMacroWhereUniqueInput) {
-    return this.bossMacrosService.findOne(where);
+  @Post()
+  create(
+    @Body()
+    data: {
+      name: string;
+      description: string;
+      patch: string;
+      series: string;
+      boss: string;
+    },
+  ): Promise<BossMacro> {
+    return this.bossMacrosService.create(data);
   }
 
   @Patch(':id')
   update(
-    @Param('id') where: Prisma.BossMacroWhereUniqueInput,
-    @Body() data: Prisma.BossMacroUpdateInput,
-  ) {
-    return this.bossMacrosService.update({ where, data });
+    @Param('id') id: string,
+    @Body()
+    data: {
+      name?: string;
+      description?: string;
+      patch?: string;
+      series?: string;
+      boss?: string;
+    },
+  ): Promise<BossMacro> {
+    return this.bossMacrosService.update({ where: { id }, data });
   }
 
   @Delete(':id')
-  remove(@Param('id') where: Prisma.BossMacroWhereUniqueInput) {
-    return this.bossMacrosService.remove(where);
+  remove(@Param('id') id: string): Promise<void> {
+    return this.bossMacrosService.remove({ id });
   }
 }
