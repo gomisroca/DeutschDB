@@ -6,9 +6,10 @@ import { HealthModule } from './health/health.module';
 // Entities
 import { BossMacrosModule } from './boss-macros/boss-macros.module';
 import { CraftingMacrosModule } from './crafting-macros/crafting-macros.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
-  imports: [HealthModule, BossMacrosModule, CraftingMacrosModule],
+  imports: [HealthModule, BossMacrosModule, CraftingMacrosModule, PrismaModule],
   controllers: [AppController],
   providers: [AppService],
 })
