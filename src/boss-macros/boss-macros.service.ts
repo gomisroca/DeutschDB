@@ -6,13 +6,15 @@ import { BossMacro, Prisma } from '@prisma/client';
 export class BossMacrosService {
   constructor(private prisma: PrismaService) {}
 
-  findOne(where: Prisma.BossMacroWhereUniqueInput): Promise<BossMacro | null> {
+  async findOne(
+    where: Prisma.BossMacroWhereUniqueInput,
+  ): Promise<BossMacro | null> {
     return this.prisma.bossMacro.findUnique({
       where,
     });
   }
 
-  findAll(params: {
+  async findAll(params: {
     skip?: number;
     take?: number;
     cursor?: Prisma.BossMacroWhereUniqueInput;
