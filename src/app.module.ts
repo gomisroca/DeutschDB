@@ -2,8 +2,6 @@
 import { Module } from '@nestjs/common';
 import { HealthModule } from './health/health.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { BossMacrosModule } from './boss-macros/boss-macros.module';
-import { CraftingMacrosModule } from './crafting-macros/crafting-macros.module';
 import { GrammarModule } from './grammar/grammar.module';
 import { PhrasesModule } from './phrases/phrases.module';
 import { PracticeModule } from './practice/practice.module';
@@ -28,8 +26,6 @@ import { WordsService } from './words/words.service';
   imports: [
     HealthModule,
     PrismaModule,
-    BossMacrosModule,
-    CraftingMacrosModule,
     GrammarModule,
     PhrasesModule,
     PracticeModule,
