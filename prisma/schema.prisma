@@ -8,22 +8,38 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model BossMacro {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
-  patch       String
-  series      String
-  boss        String
+model Word {
+  id           String            @id @default(uuid())
+  word         String
+  type         String
+  gender       String?
+  plural       String?
+  level        String
+  definition   String
+  examples     String[]
+  conjugations VerbConjugation[]
 }
 
-model CraftingMacro {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now())
-  patch       String
+model VerbConjugation {
+  id     String @id @default(uuid())
+  verb   Word   @relation(fields: [verbId], references: [id])
+  verbId String
+  tense  String
+  mood   String
+  person String
+  form   String
+}
+
+model GrammarTopic {
+  id       String   @id @default(uuid())
+  title    String
+  body     String
+  examples String[]
+}
+
+model Phrase {
+  id      String @id @default(uuid())
+  topic   String
+  german  String
+  english String
 }
