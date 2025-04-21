@@ -8,38 +8,97 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum WordType {
+  noun
+  verb
+  adjective
+  adverb
+  pronoun
+  article
+  preposition
+  conjunction
+  numeral
+  interjection
+}
+
+enum Gender {
+  masculine
+  feminine
+  neuter
+}
+
+enum Level {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
 model Word {
-  id           String            @id @default(uuid())
-  word         String
-  type         String
-  gender       String?
-  plural       String?
-  level        String
-  definition   String
-  examples     String[]
-  conjugations VerbConjugation[]
+  id         String   @id @default(uuid())
+  word       String
+  type       WordType
+  gender     Gender?
+  plural     String?
+  level      Level
+  definition String
+  examples   String[]
+}
+
+// English	        German	        Use Case Example
+// Present	        Präsens	        Ich gehe (I go)
+// Simple Past	    Präteritum	    Ich ging (I went)
+// Present Perfect	Perfekt	        Ich bin gegangen
+// Past Perfect	    Plusquamperfekt	Ich war gegangen
+// Future I         Futur I	        Ich werde gehen
+// Future II	      Futur II	      Ich werde gegangen sein
+enum VerbTense {
+  present
+  simple_past
+  present_perfect
+  past_perfect
+  future_1
+  future_2
+}
+
+// English	        German	        Use Case Example
+// Indicative	      Indikativ	      Ich gehe
+// Subjunctive I	  Konjunktiv I	  Er sagt, er gehe nach Hause
+// Subjunctive II	  Konjunktiv II	  Ich würde gehen / Ich ginge
+// Imperative	      Imperativ	      Geh!
+// Infinitive	      Infinitiv	      gehen
+// Participle	      Partizip	      gehend, gegangen
+enum VerbMood {
+  indicative
+  subjunctive_1
+  subjunctive_2
+  imperative
+  infinitive
+  participle
 }
 
 model VerbConjugation {
-  id     String @id @default(uuid())
-  verb   Word   @relation(fields: [verbId], references: [id])
-  verbId String
-  tense  String
-  mood   String
-  person String
-  form   String
+  id    String    @id @default(uuid())
+  verb  String
+  tense VerbTense
+  mood  VerbMood
+  forms String[]
 }
 
 model GrammarTopic {
   id       String   @id @default(uuid())
   title    String
   body     String
+  level    Level
   examples String[]
 }
 
 model Phrase {
   id      String @id @default(uuid())
   topic   String
+  level   Level
   german  String
   english String
 }
