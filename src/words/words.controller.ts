@@ -6,9 +6,10 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { WordsService } from './words.service';
-import { Word } from '@prisma/client';
+import { Gender, Level, Prisma, Word, WordType } from '@prisma/client';
 
 @Controller('words')
 export class WordsController {
@@ -20,8 +21,29 @@ export class WordsController {
   }
 
   @Get()
-  findAll(): Promise<Word[]> {
-    return this.wordsService.findAll({});
+  findAll(
+    @Query()
+    query: {
+      type?: string;
+      level?: string;
+      skip?: string;
+      take?: string;
+      cursor?: string;
+    },
+  ): Promise<Word[]> {
+    const { type, level, skip, take, cursor } = query;
+
+    const where: Prisma.WordWhereInput = {};
+    if (type) where.type = type as WordType;
+    if (level) where.level = level as Level;
+
+    return this.wordsService.findAll({
+      where,
+      skip: skip ? parseInt(skip, 10) : undefined,
+      take: take ? parseInt(take, 10) : undefined,
+      cursor: cursor ? { id: cursor } : undefined,
+      orderBy: { id: 'asc' },
+    });
   }
 
   @Post()
@@ -29,10 +51,10 @@ export class WordsController {
     @Body()
     data: {
       word: string;
-      type: string;
-      gender?: string;
+      type: WordType;
+      gender?: Gender;
       plural?: string;
-      level: string;
+      level: Level;
       definition: string;
       examples?: string[];
     },
@@ -46,10 +68,10 @@ export class WordsController {
     @Body()
     data: {
       word?: string;
-      type?: string;
-      gender?: string;
+      type: WordType;
+      gender?: Gender;
       plural?: string;
-      level?: string;
+      level: Level;
       definition?: string;
       examples?: string[];
     },
