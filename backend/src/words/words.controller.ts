@@ -21,7 +21,7 @@ export class WordsController {
   }
 
   @Get()
-  findAll(
+  async findAll(
     @Query()
     query: {
       type?: string;
@@ -37,13 +37,15 @@ export class WordsController {
     if (type) where.type = type as WordType;
     if (level) where.level = level as Level;
 
-    return this.wordsService.findAll({
+    const words = await this.wordsService.findAll({
       where,
       skip: skip ? parseInt(skip, 10) : undefined,
       take: take ? parseInt(take, 10) : undefined,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: { id: 'asc' },
     });
+
+    return words;
   }
 
   @Post()
