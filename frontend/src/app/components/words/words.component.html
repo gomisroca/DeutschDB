@@ -1,0 +1,5 @@
+<ul>
+  @for (word of words | async; track word.id) {
+  <li>{{ word.word }}</li>
+  }
+</ul>
