@@ -1,4 +1,4 @@
-type Word = {
+export type Word = {
   id: string;
   word: string;
   type: string;

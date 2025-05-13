@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { WordsService } from '../../services/words.service';
+import { WordsService } from '@services/words.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { Word } from 'types';
 
 @Component({
   selector: 'words',
