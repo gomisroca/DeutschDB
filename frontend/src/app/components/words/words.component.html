@@ -1,6 +1,13 @@
-<h1>Words</h1>
+<a
+  class="bg-zinc-900 hover:bg-blue-500 active:bg-blue-700 hover:font-semibold transition-all duration-300 py-2 px-4 hover:pl-6 text-right"
+  routerLink="/words/create"
+  routerLinkActive="active"
+  ariaCurrentWhenActive="page"
+  >Add Word</a
+>
+<!-- List of words -->
 <ul>
   @for (word of words | async; track word.id) {
-  <li>{{ word.word }}</li>
+  <li><words-card [word]="word"></words-card></li>
   }
 </ul>

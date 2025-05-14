@@ -1,14 +1,60 @@
 import { Routes } from '@angular/router';
 import { WordsComponent } from '@components/words/words.component';
+import { WordsCreateComponent } from '@components/words/create/create.component';
 import { GrammarComponent } from '@components/grammar/grammar.component';
+import { GrammarCreateComponent } from '@components/grammar/create/create.component';
 import { VerbsComponent } from '@components/verbs/verbs.component';
+import { VerbsCreateComponent } from '@components/verbs/create/create.component';
+import { PhrasesComponent } from '@components/phrases/phrases.component';
+import { PhrasesCreateComponent } from '@components/phrases/create/create.component';
+import { PracticeComponent } from '@components/practice/practice.component';
+import { PracticeCreateComponent } from '@components/practice/create/create.component';
 
 export const routes: Routes = [
-  { path: 'words', component: WordsComponent, title: 'DeutschDB - Words' },
+  {
+    path: 'words',
+    component: WordsComponent,
+    title: 'DeutschDB - Words',
+  },
+  {
+    path: 'words/create',
+    component: WordsCreateComponent,
+    title: 'DeutschDB - Words - Create',
+  },
   {
     path: 'grammar',
     component: GrammarComponent,
     title: 'DeutschDB - Grammar',
   },
+  {
+    path: 'grammar/create',
+    component: GrammarCreateComponent,
+    title: 'DeutschDB - Grammar - Create',
+  },
   { path: 'verbs', component: VerbsComponent, title: 'DeutschDB - Verbs' },
+  {
+    path: 'verbs/create',
+    component: VerbsCreateComponent,
+    title: 'DeutschDB - Verbs - Create',
+  },
+  {
+    path: 'phrases',
+    component: PhrasesComponent,
+    title: 'DeutschDB - Phrases',
+  },
+  {
+    path: 'phrases/create',
+    component: PhrasesCreateComponent,
+    title: 'DeutschDB - Phrases - Create',
+  },
+  {
+    path: 'practice',
+    component: PracticeComponent,
+    title: 'DeutschDB - Practice',
+  },
+  {
+    path: 'practice/create',
+    component: PracticeCreateComponent,
+    title: 'DeutschDB - Practice - Create',
+  },
 ];
