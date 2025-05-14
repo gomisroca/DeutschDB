@@ -1,0 +1,30 @@
+### GET ALL WORDS
+GET http://localhost:3000/words
+
+### GET WORD BY ID
+GET http://localhost:3000/words/e8849773-d55b-49e7-9006-c9b60eb9dcab
+
+### CREATE WORD
+POST http://localhost:3000/words
+Content-Type: application/json
+
+{
+    "word": "Mädchen",
+    "type": "noun",
+    "gender": "neuter",
+    "plural": "Mädchen",
+    "level": "A1",
+    "definition": "Junge, jüngere weibliche Person.",
+    "examples": ["Sie hat ein Mädchen bekommen.", "Die Mädchen haben im Mathetest besser abgeschnitten als die Junge."]
+}
+
+### UPDATE WORD
+PATCH http://localhost:3000/words/ca5d5182-9535-435a-846d-dcd63f2aaef8
+Content-Type: application/json
+
+{
+    "examples": ["Sie hat ein Mädchen bekommen.", "Die Mädchen haben im Mathetest besser abgeschnitten als die Junge.", "Das Mädchen ist Krankenschwester."]
+}
+
+### DELETE WORD
+DELETE http://localhost:3000/words/ca5d5182-9535-435a-846d-dcd63f2aaef8
