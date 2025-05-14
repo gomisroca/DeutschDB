@@ -16,11 +16,7 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(appController.getMacros()).toBe([
-        'Hello World!',
-        'Second Macro!',
-        'Third Macro!',
-      ]);
+      expect(appController.getHello()).toBe('Hello World!');
     });
   });
 });
