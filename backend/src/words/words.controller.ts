@@ -16,7 +16,7 @@ export class WordsController {
   constructor(private readonly wordsService: WordsService) {}
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Word | null> {
+  findOne(@Param('id') id: string): Promise<Word> {
     return this.wordsService.findOne({ id });
   }
 
@@ -70,10 +70,10 @@ export class WordsController {
     @Body()
     data: {
       word?: string;
-      type: WordType;
+      type?: WordType;
       gender?: Gender;
       plural?: string;
-      level: Level;
+      level?: Level;
       definition?: string;
       examples?: string[];
     },

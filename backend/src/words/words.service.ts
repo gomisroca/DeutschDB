@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma, Word } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -6,10 +10,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class WordsService {
   constructor(private prisma: PrismaService) {}
 
-  async findOne(where: Prisma.WordWhereUniqueInput): Promise<Word | null> {
-    return this.prisma.word.findUnique({
-      where,
-    });
+  async findOne(where: Prisma.WordWhereUniqueInput): Promise<Word> {
+    try {
+      return await this.prisma.word.findUniqueOrThrow({
+        where,
+      });
+    } catch {
+      throw new NotFoundException('Word by given ID does not exist');
+    }
   }
 
   async findAll(params: {
@@ -19,36 +27,68 @@ export class WordsService {
     where?: Prisma.WordWhereInput;
     orderBy?: Prisma.WordOrderByWithRelationInput;
   }): Promise<Word[]> {
-    const { skip, take, cursor, where, orderBy } = params;
-    return this.prisma.word.findMany({
-      skip,
-      take,
-      cursor,
-      where,
-      orderBy,
-    });
+    try {
+      const { skip, take, cursor, where, orderBy } = params;
+      return this.prisma.word.findMany({
+        skip,
+        take,
+        cursor,
+        where,
+        orderBy,
+      });
+    } catch {
+      throw new NotFoundException('No words found by given parameters');
+    }
   }
 
   async create(data: Prisma.WordCreateInput): Promise<Word> {
-    return this.prisma.word.create({
-      data,
-    });
+    try {
+      const existingWord = await this.prisma.word.findFirst({
+        where: {
+          word: data.word,
+        },
+      });
+      if (existingWord) throw new Error('Word already exists');
+
+      return this.prisma.word.create({
+        data,
+      });
+    } catch {
+      throw new ConflictException('Word already exists');
+    }
   }
 
   async update(params: {
     where: Prisma.WordWhereUniqueInput;
     data: Prisma.WordUpdateInput;
   }): Promise<Word> {
-    const { where, data } = params;
-    return this.prisma.word.update({
-      where,
-      data,
-    });
+    try {
+      const { where, data } = params;
+
+      await this.prisma.word.findUniqueOrThrow({
+        where,
+      });
+
+      return this.prisma.word.update({
+        where,
+        data,
+      });
+    } catch {
+      throw new NotFoundException('Word by given ID does not exist');
+    }
   }
 
   async remove(where: Prisma.WordWhereUniqueInput): Promise<void> {
-    await this.prisma.word.delete({
-      where,
-    });
+    try {
+      await this.prisma.word.findUniqueOrThrow({
+        where,
+      });
+
+      await this.prisma.word.delete({
+        where,
+      });
+    } catch {
+      throw new NotFoundException('Word by given ID does not exist');
+    }
   }
 }
