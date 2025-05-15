@@ -1,5 +1,6 @@
 // Modules
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { GrammarModule } from './grammar/grammar.module';
@@ -21,6 +22,7 @@ import { AppService } from './app.service';
     PracticeModule,
     VerbsModule,
     WordsModule,
+    ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [AppController],
   providers: [AppService],

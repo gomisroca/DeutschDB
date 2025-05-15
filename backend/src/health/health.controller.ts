@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import {
   HealthCheckService,
   HttpHealthIndicator,
@@ -11,7 +12,7 @@ export class HealthController {
     private readonly health: HealthCheckService,
     private readonly http: HttpHealthIndicator,
   ) {}
-
+  configService = new ConfigService();
   @Get()
   @HealthCheck()
   check() {
@@ -19,12 +20,14 @@ export class HealthController {
       () =>
         this.http.pingCheck(
           'boss-macros',
-          process.env.BASE_URL ?? 'http://localhost:3000' + '/boss-macros',
+          this.configService.get('BASE_URL') ??
+            'http://localhost:3000' + '/boss-macros',
         ),
       () =>
         this.http.pingCheck(
           'crafting-macros',
-          process.env.BASE_URL ?? 'http://localhost:3000' + '/crafting-macros',
+          this.configService.get('BASE_URL') ??
+            'http://localhost:3000' + '/crafting-macros',
         ),
     ]);
   }
