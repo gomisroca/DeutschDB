@@ -14,5 +14,28 @@ export class WordsService {
     return this.http.get<Word[]>(environment.API_URL + '/words');
   }
 
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(environment.API_URL + '/words/' + id);
+  }
+
+  create(data: {
+    word: string;
+    type: string;
+    gender?: string;
+    plural?: string;
+    level: string;
+    definition: string;
+    examples?: string[];
+  }): Observable<Word> {
+    return this.http.post<Word>(environment.API_URL + '/words', data);
+  }
+
+  update(data: Word): Observable<Word> {
+    return this.http.patch<Word>(
+      environment.API_URL + '/words/' + data.id,
+      data
+    );
+  }
+
   constructor() {}
 }

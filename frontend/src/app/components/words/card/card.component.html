@@ -1,3 +1,6 @@
 @if (word) {
 <p>{{ word.word }}</p>
+<stylized-link label="Edit" [path]="'/words/edit/' + word.id"></stylized-link>
+
+<button (click)="confirmDelete()" class="delete-button">Delete</button>
 }
