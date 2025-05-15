@@ -14,8 +14,8 @@
   <p>{{ word.definition }}</p>
   <section class="flex items-center justify-center">
     <stylized-link
-      label="Edit"
-      [path]="'/words/edit/' + word.id"
+      label="Update"
+      [path]="'/words/update/' + word.id"
     ></stylized-link>
     <stylized-button label="Delete" (click)="confirmDelete()"></stylized-button>
   </section>
