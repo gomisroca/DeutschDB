@@ -87,6 +87,8 @@ export class WordsService {
       await this.prisma.word.delete({
         where,
       });
+
+      return Promise.resolve();
     } catch {
       throw new NotFoundException('Word by given ID does not exist');
     }
