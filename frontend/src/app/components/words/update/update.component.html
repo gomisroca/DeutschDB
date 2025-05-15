@@ -1,1 +1,117 @@
-<p>update works!</p>
+<form
+  (ngSubmit)="onSubmit()"
+  #wordForm="ngForm"
+  class="flex flex-col gap-4 mx-auto items-center justify-center"
+>
+  <div>
+    <label for="word" class="block text-sm font-medium text-zinc-400"
+      >Word</label
+    >
+    <input
+      type="text"
+      name="word"
+      [value]="word"
+      placeholder="Tür"
+      [(ngModel)]="word"
+      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
+    />
+  </div>
+  <div>
+    <label for="type" class="block text-sm font-medium text-zinc-400"
+      >Type</label
+    >
+    <select
+      name="type"
+      [(ngModel)]="type"
+      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
+    >
+      <option selected value="" class="hidden">Noun, Verb...</option>
+      <option value="noun">Noun</option>
+      <option value="verb">Verb</option>
+      <option value="adjective">Adjective</option>
+      <option value="adverb">Adverb</option>
+      <option value="pronoun">Pronoun</option>
+      <option value="article">Article</option>
+      <option value="preposition">Preposition</option>
+      <option value="conjunction">Conjunction</option>
+      <option value="numeral">Numeral</option>
+      <option value="interjection">Interjection</option>
+    </select>
+  </div>
+  <div>
+    <label for="gender" class="block text-sm font-medium text-zinc-400"
+      >Gender</label
+    >
+    <select
+      name="gender"
+      [(ngModel)]="gender"
+      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
+    >
+      <option selected value="" class="hidden">Masculine, Feminine...</option>
+      <option value="masculine">Masculine</option>
+      <option value="feminine">Feminine</option>
+      <option value="neuter">Neuter</option>
+    </select>
+  </div>
+  <div>
+    <label for="plural" class="block text-sm font-medium text-zinc-400"
+      >Plural</label
+    >
+    <input
+      type="text"
+      name="plural"
+      placeholder="Türen"
+      [(ngModel)]="plural"
+      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
+    />
+  </div>
+  <div>
+    <label for="level" class="block text-sm font-medium text-zinc-400"
+      >Level</label
+    >
+    <select
+      name="level"
+      [(ngModel)]="level"
+      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
+    >
+      <option selected value="" class="hidden">A1, A2...</option>
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+      <option value="B1">B1</option>
+      <option value="B2">B2</option>
+      <option value="C1">C1</option>
+      <option value="C2">C2</option>
+    </select>
+  </div>
+  <div>
+    <label for="definition" class="block text-sm font-medium text-zinc-400"
+      >Definition</label
+    >
+    <input
+      type="text"
+      name="definition"
+      placeholder="Vorrichtung in Form einer in Scharnieren hängenden"
+      [(ngModel)]="definition"
+      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
+    />
+  </div>
+  <div>
+    <label for="examples" class="block text-sm font-medium text-zinc-400"
+      >Examples (split with '/')</label
+    >
+    <input
+      type="text"
+      name="examples"
+      placeholder="Die Tür hinter sich zumachen"
+      [(ngModel)]="examples"
+      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
+    />
+  </div>
+  <button
+    type="submit"
+    [disabled]="!wordForm.form.valid"
+    class="bg-zinc-900 hover:bg-blue-500 active:bg-blue-700 hover:font-semibold transition-all duration-300 py-2 px-4 hover:px-6 text-center"
+  >
+    Submit
+  </button>
+</form>

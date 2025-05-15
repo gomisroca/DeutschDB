@@ -10,6 +10,10 @@ import { Word } from 'types';
 export class WordsService {
   private http = inject(HttpClient);
 
+  getUnique(id: string): Observable<Word> {
+    return this.http.get<Word>(environment.API_URL + '/words/' + id);
+  }
+
   get(): Observable<Word[]> {
     return this.http.get<Word[]>(environment.API_URL + '/words');
   }
