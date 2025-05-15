@@ -14,7 +14,7 @@ import { Word } from 'types';
   templateUrl: './card.component.html',
 })
 export class WordsCardComponent {
-  @Input() word: Word | undefined;
+  @Input({ required: true }) word!: Word;
 
   constructor(
     private wordService: WordsService,
