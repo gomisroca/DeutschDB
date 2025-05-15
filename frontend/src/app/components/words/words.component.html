@@ -1,7 +1,13 @@
-<stylized-link label="Add Word" path="/words/create"></stylized-link>
-<!-- List of words -->
-<ul>
-  @for (word of words | async; track word.id) {
-  <li><words-card [word]="word"></words-card></li>
-  }
-</ul>
+<div class="relative">
+  <aside class="absolute">
+    <stylized-link label="Add Word" path="/words/create"></stylized-link>
+  </aside>
+  <!-- List of words -->
+  <main>
+    <ul class="flex flex-wrap gap-4 items-center justify-center">
+      @for (word of words | async; track word.id) {
+      <li><words-card [word]="word"></words-card></li>
+      }
+    </ul>
+  </main>
+</div>

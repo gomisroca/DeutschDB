@@ -1,13 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { NavigationService } from '@app/services/navigation.service';
+// Components
 import { LinkComponent } from '@components/ui/link/link.component';
+import { ButtonComponent } from '@components/ui/button/button.component';
+// Services
 import { WordsService } from '@services/words.service';
+import { NavigationService } from '@services/navigation.service';
+// Types
 import { Word } from 'types';
 
 @Component({
   selector: 'words-card',
-  imports: [LinkComponent],
+  imports: [LinkComponent, ButtonComponent],
   templateUrl: './card.component.html',
 })
 export class WordsCardComponent {
