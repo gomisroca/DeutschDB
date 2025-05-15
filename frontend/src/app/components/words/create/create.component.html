@@ -11,7 +11,7 @@
       type="text"
       name="word"
       placeholder="Tür"
-      [(ngModel)]="word"
+      [(ngModel)]="form.word"
       class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
     />
   </div>
@@ -21,7 +21,7 @@
     >
     <select
       name="type"
-      [(ngModel)]="type"
+      [(ngModel)]="form.type"
       class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
     >
       <option selected value="" class="hidden">Noun, Verb...</option>
@@ -43,7 +43,7 @@
     >
     <select
       name="gender"
-      [(ngModel)]="gender"
+      [(ngModel)]="form.gender"
       class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
     >
       <option selected value="" class="hidden">Masculine, Feminine...</option>
@@ -60,7 +60,7 @@
       type="text"
       name="plural"
       placeholder="Türen"
-      [(ngModel)]="plural"
+      [(ngModel)]="form.plural"
       class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
     />
   </div>
@@ -70,7 +70,7 @@
     >
     <select
       name="level"
-      [(ngModel)]="level"
+      [(ngModel)]="form.level"
       class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
     >
       <option selected value="" class="hidden">A1, A2...</option>
@@ -90,21 +90,20 @@
       type="text"
       name="definition"
       placeholder="Vorrichtung in Form einer in Scharnieren hängenden"
-      [(ngModel)]="definition"
+      [(ngModel)]="form.definition"
       class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
     />
   </div>
   <div>
     <label for="examples" class="block text-sm font-medium text-zinc-400"
-      >Examples (split with '/')</label
+      >Examples (split with ',')</label
     >
-    <input
-      type="text"
+    <textarea
       name="examples"
       placeholder="Die Tür hinter sich zumachen"
-      [(ngModel)]="examples"
+      [(ngModel)]="form.examples"
       class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
-    />
+    ></textarea>
   </div>
   <button
     type="submit"

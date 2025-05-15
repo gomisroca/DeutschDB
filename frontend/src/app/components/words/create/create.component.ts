@@ -8,26 +8,31 @@ import { WordsService } from '@app/services/words.service';
   templateUrl: './create.component.html',
 })
 export class WordsCreateComponent {
-  word = '';
-  type = '';
-  gender = '';
-  plural = '';
-  level = '';
-  definition = '';
-  examples = '';
+  form: {
+    word: string;
+    type: string;
+    gender?: string;
+    plural?: string;
+    level: string;
+    definition: string;
+    examples?: string;
+  } = {
+    word: '',
+    type: '',
+    gender: '',
+    plural: '',
+    level: '',
+    definition: '',
+    examples: '',
+  };
 
   private wordsService = inject(WordsService);
 
   onSubmit() {
     this.wordsService
       .create({
-        word: this.word,
-        type: this.type,
-        gender: this.gender,
-        plural: this.plural,
-        level: this.level,
-        definition: this.definition,
-        examples: this.examples.split('/'),
+        ...this.form,
+        examples: this.form.examples?.split(','),
       })
       .subscribe((word) => {
         console.log('Created word:', word);
