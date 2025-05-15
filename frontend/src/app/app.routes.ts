@@ -1,12 +1,18 @@
 import { Routes } from '@angular/router';
+// Words
 import { WordsComponent } from '@components/words/words.component';
 import { WordsCreateComponent } from '@components/words/create/create.component';
+import { WordsUpdateComponent } from './components/words/update/update.component';
+// Grammar
 import { GrammarComponent } from '@components/grammar/grammar.component';
 import { GrammarCreateComponent } from '@components/grammar/create/create.component';
+// Verbs
 import { VerbsComponent } from '@components/verbs/verbs.component';
 import { VerbsCreateComponent } from '@components/verbs/create/create.component';
+// Phrases
 import { PhrasesComponent } from '@components/phrases/phrases.component';
 import { PhrasesCreateComponent } from '@components/phrases/create/create.component';
+// Practice
 import { PracticeComponent } from '@components/practice/practice.component';
 import { PracticeCreateComponent } from '@components/practice/create/create.component';
 
@@ -20,6 +26,11 @@ export const routes: Routes = [
     path: 'words/create',
     component: WordsCreateComponent,
     title: 'DeutschDB - Words - Create',
+  },
+  {
+    path: 'words/update/:id',
+    component: WordsUpdateComponent,
+    title: 'DeutschDB - Words - Update',
   },
   {
     path: 'grammar',
