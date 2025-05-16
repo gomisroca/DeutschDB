@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '@environment/environment';
-import { Verb, Word } from 'types';
+import { VerbConjugation, Verb } from 'types';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +10,8 @@ import { Verb, Word } from 'types';
 export class VerbsService {
   private http = inject(HttpClient);
 
-  getUnique(id: string): Observable<Verb> {
-    return this.http.get<Verb>(environment.API_URL + '/verbs/' + id);
+  getUniqueConjugation(id: string): Observable<VerbConjugation> {
+    return this.http.get<VerbConjugation>(environment.API_URL + '/verbs/' + id);
   }
 
   get(): Observable<Verb[]> {
@@ -22,11 +22,13 @@ export class VerbsService {
     return this.http.delete<void>(environment.API_URL + '/verbs/' + id);
   }
 
-  create(data: Omit<Verb, 'id'>): Observable<Verb> {
+  create(
+    data: Omit<VerbConjugation, 'id'> & { verbName: string }
+  ): Observable<Verb> {
     return this.http.post<Verb>(environment.API_URL + '/verbs', data);
   }
 
-  update(data: Verb): Observable<Verb> {
+  update(data: VerbConjugation): Observable<Verb> {
     return this.http.patch<Verb>(
       environment.API_URL + '/verbs/' + data.id,
       data

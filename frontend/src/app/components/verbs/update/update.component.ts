@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { VerbsService } from '@services/verbs.service';
-import { Verb } from 'types';
+import { VerbConjugation } from 'types';
 
 @Component({
   selector: 'verbs-update',
@@ -11,9 +11,8 @@ import { Verb } from 'types';
   templateUrl: './update.component.html',
 })
 export class VerbsUpdateComponent {
-  form: Verb & { formsInput: string } = {
+  form: VerbConjugation & { formsInput: string } = {
     id: '',
-    verb: '',
     tense: '',
     mood: '',
     formsInput: '',
@@ -31,10 +30,10 @@ export class VerbsUpdateComponent {
 
     this.form.id = id;
 
-    this.verbsService.getUnique(id).subscribe((verb) => {
+    this.verbsService.getUniqueConjugation(id).subscribe((conjugation) => {
       this.form = {
-        ...verb,
-        formsInput: verb.forms.join(',') ?? '',
+        ...conjugation,
+        formsInput: conjugation.forms.join(',') ?? '',
       };
     });
   }
@@ -48,7 +47,6 @@ export class VerbsUpdateComponent {
     this.verbsService
       .update({
         id: this.form.id,
-        verb: this.form.verb,
         tense: this.form.tense,
         mood: this.form.mood,
         forms: this.form.forms,

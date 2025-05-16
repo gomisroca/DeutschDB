@@ -1,0 +1,22 @@
+<article
+  class="border border-zinc-900 flex flex-col gap-2 items-center justify-center w-52"
+>
+  <div class="text-center">
+    <section class="flex gap-2 text-sm">
+      <p>{{ mood }}</p>
+      <p>{{ tense }}</p>
+    </section>
+  </div>
+  <ul class="grid grid-cols-3 gap-2">
+    @for (form of conjugation.forms; track form) {
+    <li class="text-sm text-center">{{ form }}</li>
+    }
+  </ul>
+  <section class="flex items-center justify-center">
+    <stylized-link
+      label="Update"
+      [path]="'/verbs/update/' + conjugation.id"
+    ></stylized-link>
+    <stylized-button label="Delete" (click)="confirmDelete()"></stylized-button>
+  </section>
+</article>

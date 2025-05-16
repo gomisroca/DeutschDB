@@ -9,10 +9,15 @@ export type Word = {
   examples: string[];
 };
 
-export type Verb = {
+export type VerbConjugation = {
   id: string;
-  verb: string;
   tense: string;
   mood: string;
   forms: string[];
+};
+
+export type Verb = {
+  id: string;
+  verb: string;
+  conjugations: VerbConjugation[];
 };

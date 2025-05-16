@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { VerbsService } from './verbs.service';
-import { VerbConjugation, VerbMood, VerbTense } from '@prisma/client';
+import { Verb, VerbConjugation, VerbMood, VerbTense } from '@prisma/client';
 
 @Controller('verbs')
 export class VerbsController {
@@ -28,7 +28,7 @@ export class VerbsController {
       take?: string;
       cursor?: string;
     },
-  ): Promise<VerbConjugation[]> {
+  ): Promise<Verb[]> {
     const { skip, take, cursor } = query;
 
     return this.verbsService.findAll({
@@ -43,7 +43,7 @@ export class VerbsController {
   create(
     @Body()
     data: {
-      verb: string;
+      verbName: string;
       tense: VerbTense;
       mood: VerbMood;
       forms: string[];
@@ -57,7 +57,6 @@ export class VerbsController {
     @Param('id') id: string,
     @Body()
     data: {
-      verb?: string;
       tense?: VerbTense;
       mood?: VerbMood;
       forms?: string[];

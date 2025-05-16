@@ -3,7 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Prisma, VerbConjugation } from '@prisma/client';
+import {
+  Prisma,
+  Verb,
+  VerbConjugation,
+  VerbMood,
+  VerbTense,
+} from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -25,37 +31,68 @@ export class VerbsService {
   async findAll(params: {
     skip?: number;
     take?: number;
-    cursor?: Prisma.VerbConjugationWhereUniqueInput;
-    where?: Prisma.VerbConjugationWhereInput;
-    orderBy?: Prisma.VerbConjugationOrderByWithRelationInput;
-  }): Promise<VerbConjugation[]> {
+    cursor?: Prisma.VerbWhereUniqueInput;
+    where?: Prisma.VerbWhereInput;
+    orderBy?: Prisma.VerbOrderByWithRelationInput;
+  }): Promise<Verb[]> {
     try {
       const { skip, take, cursor, where, orderBy } = params;
-      return this.prisma.verbConjugation.findMany({
+      return this.prisma.verb.findMany({
         skip,
         take,
         cursor,
         where,
         orderBy,
+        include: {
+          conjugations: true,
+        },
       });
     } catch {
       throw new NotFoundException('No verbs found by given parameters');
     }
   }
 
-  async create(
-    data: Prisma.VerbConjugationCreateInput,
-  ): Promise<VerbConjugation> {
+  async create(data: {
+    verbName: string;
+    tense: VerbTense;
+    mood: VerbMood;
+    forms: string[];
+  }): Promise<VerbConjugation> {
     try {
-      const existingVerb = await this.prisma.verbConjugation.findFirst({
+      const existingVerb = await this.prisma.verb.findFirst({
         where: {
-          verb: data.verb,
+          verb: data.verbName,
         },
       });
-      if (existingVerb) throw new Error('Verb already exists');
+      let verbId = existingVerb?.id;
+
+      if (!existingVerb) {
+        const newVerb = await this.prisma.verb.create({
+          data: {
+            verb: data.verbName,
+          },
+        });
+        verbId = newVerb.id;
+      }
+
+      const existingConjugation = await this.prisma.verbConjugation.findUnique({
+        where: {
+          verbId_tense_mood: {
+            verbId: verbId!,
+            tense: data.tense,
+            mood: data.mood,
+          },
+        },
+      });
+      if (existingConjugation) throw new Error('Verb already exists');
 
       return this.prisma.verbConjugation.create({
-        data,
+        data: {
+          verbId: verbId!,
+          tense: data.tense,
+          mood: data.mood,
+          forms: data.forms,
+        },
       });
     } catch {
       throw new ConflictException('Verb already exists');

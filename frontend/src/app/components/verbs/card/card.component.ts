@@ -1,16 +1,16 @@
 import { Component, Input } from '@angular/core';
 // Components
-import { LinkComponent } from '@components/ui/link/link.component';
 import { ButtonComponent } from '@components/ui/button/button.component';
 // Services
-import { NavigationService } from '@services/navigation.service';
 import { VerbsService } from '@services/verbs.service';
+import { NavigationService } from '@services/navigation.service';
 // Types
 import { Verb } from 'types';
+import { VerbsConjugationComponent } from '../conjugation/conjugation.component';
 
 @Component({
   selector: 'verbs-card',
-  imports: [LinkComponent, ButtonComponent],
+  imports: [ButtonComponent, VerbsConjugationComponent],
   templateUrl: './card.component.html',
 })
 export class VerbsCardComponent {

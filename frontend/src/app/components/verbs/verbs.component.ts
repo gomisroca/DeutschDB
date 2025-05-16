@@ -1,10 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { VerbsCardComponent } from './card/card.component';
 import { LinkComponent } from '../ui/link/link.component';
 import { Observable } from 'rxjs';
 import { Verb } from 'types';
 import { VerbsService } from '@app/services/verbs.service';
+import { VerbsCardComponent } from './card/card.component';
 
 @Component({
   selector: 'verbs',

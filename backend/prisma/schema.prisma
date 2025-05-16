@@ -81,10 +81,19 @@ enum VerbMood {
 
 model VerbConjugation {
   id    String    @id @default(uuid())
-  verb  String
+  verb  Verb      @relation(fields: [verbId], references: [id], onDelete: Cascade)
+  verbId String
   tense VerbTense
   mood  VerbMood
   forms String[]
+
+  @@unique([verbId, tense, mood])
+}
+
+model Verb {
+  id       String   @id @default(uuid())
+  verb     String
+  conjugations VerbConjugation[]
 }
 
 model GrammarTopic {

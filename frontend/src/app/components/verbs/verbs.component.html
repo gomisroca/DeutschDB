@@ -4,7 +4,9 @@
   <main>
     <ul class="flex flex-wrap gap-4 items-center justify-center">
       @for (verb of verbs | async; track verb.id) {
-      <li><verbs-card [verb]="verb"></verbs-card></li>
+      <li>
+        <verbs-card [verb]="verb"></verbs-card>
+      </li>
       }
     </ul>
   </main>
