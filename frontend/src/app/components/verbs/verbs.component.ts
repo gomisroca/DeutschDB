@@ -1,8 +1,22 @@
-import { Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { VerbsCardComponent } from './card/card.component';
+import { LinkComponent } from '../ui/link/link.component';
+import { Observable } from 'rxjs';
+import { Verb } from 'types';
+import { VerbsService } from '@app/services/verbs.service';
 
 @Component({
   selector: 'verbs',
-  imports: [],
+  standalone: true,
+  imports: [AsyncPipe, VerbsCardComponent, LinkComponent],
   templateUrl: './verbs.component.html',
 })
-export class VerbsComponent {}
+export class VerbsComponent {
+  verbs: Observable<Verb[]>;
+  private verbsService = inject(VerbsService);
+
+  constructor() {
+    this.verbs = this.verbsService.get();
+  }
+}

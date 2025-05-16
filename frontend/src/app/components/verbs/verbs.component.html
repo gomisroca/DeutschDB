@@ -1,1 +1,11 @@
-<p>verbs works!</p>
+<div class="flex flex-col gap-6 items-center">
+  <stylized-link label="Add Verb" path="/verbs/create"></stylized-link>
+  <!-- List of verbs -->
+  <main>
+    <ul class="flex flex-wrap gap-4 items-center justify-center">
+      @for (verb of verbs | async; track verb.id) {
+      <li><verbs-card [verb]="verb"></verbs-card></li>
+      }
+    </ul>
+  </main>
+</div>

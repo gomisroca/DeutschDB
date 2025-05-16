@@ -15,6 +15,7 @@ import { PhrasesCreateComponent } from '@components/phrases/create/create.compon
 // Practice
 import { PracticeComponent } from '@components/practice/practice.component';
 import { PracticeCreateComponent } from '@components/practice/create/create.component';
+import { VerbsUpdateComponent } from './components/verbs/update/update.component';
 
 export const routes: Routes = [
   {
@@ -47,6 +48,11 @@ export const routes: Routes = [
     path: 'verbs/create',
     component: VerbsCreateComponent,
     title: 'DeutschDB - Verbs - Create',
+  },
+  {
+    path: 'verbs/update/:id',
+    component: VerbsUpdateComponent,
+    title: 'DeutschDB - Verbs - Update',
   },
   {
     path: 'phrases',
