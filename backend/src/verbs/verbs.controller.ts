@@ -9,37 +9,15 @@ import {
   Query,
 } from '@nestjs/common';
 import { VerbsService } from './verbs.service';
-import { Prisma, VerbConjugation, VerbMood, VerbTense } from '@prisma/client';
+import { VerbConjugation, VerbMood, VerbTense } from '@prisma/client';
 
 @Controller('verbs')
 export class VerbsController {
   constructor(private readonly verbsService: VerbsService) {}
 
-  @Get(':verb')
-  findOne(
-    @Param() verb: string,
-    @Query()
-    query: {
-      tense?: string;
-      mood?: string;
-    },
-  ): Promise<VerbConjugation | null> {
-    const { tense, mood } = query;
-    const where: Prisma.VerbConjugationWhereInput = {
-      verb: {
-        equals: verb,
-        mode: 'insensitive',
-      },
-    };
-    if (tense)
-      where.tense = {
-        equals: tense.toLowerCase() as VerbTense,
-      };
-    if (mood)
-      where.mood = {
-        equals: mood.toLowerCase() as VerbMood,
-      };
-    return this.verbsService.findOne(where);
+  @Get(':id')
+  findOne(@Param('id') id: string): Promise<VerbConjugation> {
+    return this.verbsService.findOne({ id });
   }
 
   @Get()
