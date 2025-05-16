@@ -8,6 +8,7 @@ import { LinkComponent } from '../ui/link/link.component';
 
 @Component({
   selector: 'words',
+  standalone: true,
   imports: [AsyncPipe, WordsCardComponent, LinkComponent],
   templateUrl: './words.component.html',
 })

@@ -22,15 +22,7 @@ export class WordsService {
     return this.http.delete<void>(environment.API_URL + '/words/' + id);
   }
 
-  create(data: {
-    word: string;
-    type: string;
-    gender?: string;
-    plural?: string;
-    level: string;
-    definition: string;
-    examples?: string[];
-  }): Observable<Word> {
+  create(data: Omit<Word, 'id'>): Observable<Word> {
     return this.http.post<Word>(environment.API_URL + '/words', data);
   }
 

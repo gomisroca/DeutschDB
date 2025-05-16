@@ -11,16 +11,7 @@ import { Word } from 'types';
   templateUrl: './update.component.html',
 })
 export class WordsUpdateComponent {
-  form: {
-    id: string;
-    word: string;
-    type: string;
-    gender: string;
-    plural: string;
-    level: string;
-    definition: string;
-    examples?: string;
-  } = {
+  form: Word & { examplesInput: string } = {
     id: '',
     word: '',
     type: '',
@@ -28,7 +19,8 @@ export class WordsUpdateComponent {
     plural: '',
     level: '',
     definition: '',
-    examples: '',
+    examplesInput: '',
+    examples: [],
   };
 
   constructor(
@@ -45,16 +37,27 @@ export class WordsUpdateComponent {
     this.wordsService.getUnique(id).subscribe((word) => {
       this.form = {
         ...word,
-        examples: word.examples.join(',') ?? '',
+        examplesInput: word.examples.join(','),
       };
     });
   }
 
   onSubmit(): void {
+    this.form.examples = this.form.examplesInput
+      .split(',')
+      .map((example) => example.trim())
+      .filter((example) => example.length > 0);
+
     this.wordsService
       .update({
-        ...this.form,
-        examples: this.form.examples?.split(',') ?? [],
+        id: this.form.id,
+        word: this.form.word,
+        type: this.form.type,
+        gender: this.form.gender,
+        plural: this.form.plural,
+        level: this.form.level,
+        definition: this.form.definition,
+        examples: this.form.examples,
       })
       .subscribe((word) => {
         console.log('Updated word:', word);
