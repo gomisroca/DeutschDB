@@ -29,3 +29,11 @@ export type GrammarTopic = {
   level: string;
   examples: string[];
 };
+
+export type Phrase = {
+  id: string;
+  topic: string;
+  level: string;
+  german: string;
+  english: string;
+};
