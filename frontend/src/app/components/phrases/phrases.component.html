@@ -1,1 +1,11 @@
-<p>phrases works!</p>
+<div class="flex flex-col gap-6 items-center">
+  <stylized-link label="Add Phrase" path="/phrases/create"></stylized-link>
+  <!-- List of words -->
+  <main>
+    <ul class="flex flex-wrap gap-4 items-center justify-center">
+      @for (phrase of phrases | async; track phrase.id) {
+      <li><phrases-card [phrase]="phrase"></phrases-card></li>
+      }
+    </ul>
+  </main>
+</div>

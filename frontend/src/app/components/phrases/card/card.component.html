@@ -1,0 +1,21 @@
+<article
+  class="border border-zinc-900 flex flex-col gap-2 items-center justify-center w-52"
+>
+  <div class="text-center flex flex-col gap-4">
+    <section class="flex gap-2 text-sm">
+      <p>{{ phrase.topic }}</p>
+      <p>{{ phrase.level }}</p>
+    </section>
+    <section class="flex gap-1 flex-col">
+      <p>DE: {{ phrase.german }}</p>
+      <p>EN: {{ phrase.english }}</p>
+    </section>
+  </div>
+  <section class="flex items-center justify-center">
+    <stylized-link
+      label="Update"
+      [path]="'/phrases/update/' + phrase.id"
+    ></stylized-link>
+    <stylized-button label="Delete" (click)="confirmDelete()"></stylized-button>
+  </section>
+</article>
