@@ -6,16 +6,18 @@ import { WordsUpdateComponent } from './components/words/update/update.component
 // Grammar
 import { GrammarComponent } from '@components/grammar/grammar.component';
 import { GrammarCreateComponent } from '@components/grammar/create/create.component';
+import { GrammarUpdateComponent } from '@components/grammar/update/update.component';
 // Verbs
 import { VerbsComponent } from '@components/verbs/verbs.component';
 import { VerbsCreateComponent } from '@components/verbs/create/create.component';
+import { VerbsUpdateComponent } from '@components/verbs/update/update.component';
+
 // Phrases
 import { PhrasesComponent } from '@components/phrases/phrases.component';
 import { PhrasesCreateComponent } from '@components/phrases/create/create.component';
 // Practice
 import { PracticeComponent } from '@components/practice/practice.component';
 import { PracticeCreateComponent } from '@components/practice/create/create.component';
-import { VerbsUpdateComponent } from './components/verbs/update/update.component';
 
 export const routes: Routes = [
   {
@@ -42,6 +44,11 @@ export const routes: Routes = [
     path: 'grammar/create',
     component: GrammarCreateComponent,
     title: 'DeutschDB - Grammar - Create',
+  },
+  {
+    path: 'grammar/update/:id',
+    component: GrammarUpdateComponent,
+    title: 'DeutschDB - Grammar - Update',
   },
   { path: 'verbs', component: VerbsComponent, title: 'DeutschDB - Verbs' },
   {
