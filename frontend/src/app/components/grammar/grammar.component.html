@@ -1,1 +1,14 @@
-<p>grammar works!</p>
+<div class="flex flex-col gap-6 items-center">
+  <stylized-link
+    label="Add Grammar Topic"
+    path="/grammar/create"
+  ></stylized-link>
+  <!-- List of topics -->
+  <main>
+    <ul class="flex flex-wrap gap-4 items-center justify-center">
+      @for (topic of topics | async; track topic.id) {
+      <li><grammar-card [topic]="topic"></grammar-card></li>
+      }
+    </ul>
+  </main>
+</div>

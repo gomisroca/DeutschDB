@@ -1,8 +1,22 @@
-import { Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { GrammarService } from '@services/grammar.service';
+import { Observable } from 'rxjs';
+import { GrammarTopic } from 'types';
+import { LinkComponent } from '@components/ui/link/link.component';
+import { GrammarCardComponent } from './card/card.component';
 
 @Component({
   selector: 'grammar',
-  imports: [],
+  standalone: true,
+  imports: [AsyncPipe, GrammarCardComponent, LinkComponent],
   templateUrl: './grammar.component.html',
 })
-export class GrammarComponent {}
+export class GrammarComponent {
+  topics: Observable<GrammarTopic[]>;
+  private grammarService = inject(GrammarService);
+
+  constructor() {
+    this.topics = this.grammarService.get();
+  }
+}
