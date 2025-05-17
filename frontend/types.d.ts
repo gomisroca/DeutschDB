@@ -21,3 +21,11 @@ export type Verb = {
   verb: string;
   conjugations: VerbConjugation[];
 };
+
+export type GrammarTopic = {
+  id: string;
+  title: string;
+  body: string;
+  level: string;
+  examples: string[];
+};
