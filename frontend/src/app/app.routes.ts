@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 // Words
 import { WordsComponent } from '@components/words/words.component';
 import { WordsCreateComponent } from '@components/words/create/create.component';
-import { WordsUpdateComponent } from './components/words/update/update.component';
+import { WordsUpdateComponent } from '@components/words/update/update.component';
 // Grammar
 import { GrammarComponent } from '@components/grammar/grammar.component';
 import { GrammarCreateComponent } from '@components/grammar/create/create.component';
@@ -11,10 +11,10 @@ import { GrammarUpdateComponent } from '@components/grammar/update/update.compon
 import { VerbsComponent } from '@components/verbs/verbs.component';
 import { VerbsCreateComponent } from '@components/verbs/create/create.component';
 import { VerbsUpdateComponent } from '@components/verbs/update/update.component';
-
 // Phrases
 import { PhrasesComponent } from '@components/phrases/phrases.component';
 import { PhrasesCreateComponent } from '@components/phrases/create/create.component';
+import { PhrasesUpdateComponent } from '@components/phrases/update/update.component';
 // Practice
 import { PracticeComponent } from '@components/practice/practice.component';
 import { PracticeCreateComponent } from '@components/practice/create/create.component';
@@ -70,6 +70,11 @@ export const routes: Routes = [
     path: 'phrases/create',
     component: PhrasesCreateComponent,
     title: 'DeutschDB - Phrases - Create',
+  },
+  {
+    path: 'phrases/update/:id',
+    component: PhrasesUpdateComponent,
+    title: 'DeutschDB - Phrases - Update',
   },
   {
     path: 'practice',
