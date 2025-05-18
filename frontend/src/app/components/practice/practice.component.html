@@ -1,0 +1,27 @@
+<div class="flex flex-col gap-6 items-center">
+  <section class="flex gap-2 items-center">
+    <stylized-button label="Practice Any" (click)="getAny()"></stylized-button>
+    <stylized-button
+      label="Practice Words"
+      (click)="getWord()"
+    ></stylized-button>
+    <stylized-button
+      label="Practice Verbs"
+      (click)="getVerb()"
+    ></stylized-button>
+    <stylized-button
+      label="Practice Grammar"
+      (click)="getGrammar()"
+    ></stylized-button>
+    <stylized-button
+      label="Practice Phrases"
+      (click)="getPhrase()"
+    ></stylized-button>
+  </section>
+
+  <main>
+    @if (practice) {
+    <practice-card [practice]="practice"></practice-card>
+    }
+  </main>
+</div>
