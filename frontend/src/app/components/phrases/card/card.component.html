@@ -7,8 +7,22 @@
       <p>{{ phrase.level }}</p>
     </section>
     <section class="flex gap-1 flex-col">
-      <p>DE: {{ phrase.german }}</p>
-      <p>EN: {{ phrase.english }}</p>
+      <h1 class="text-2xl font-bold">
+        <img
+          src="https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png"
+          alt="Flag of Germany"
+          class="inline-block w-5"
+        />
+        {{ phrase.german }}
+      </h1>
+      <h1 class="text-2xl font-bold">
+        <img
+          src="https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png"
+          alt="Flag of Germany"
+          class="inline-block w-5"
+        />
+        {{ phrase.english }}
+      </h1>
     </section>
   </div>
   <section class="flex items-center justify-center">
