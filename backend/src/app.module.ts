@@ -7,6 +7,7 @@ import { GrammarModule } from './grammar/grammar.module';
 import { PhrasesModule } from './phrases/phrases.module';
 import { VerbsModule } from './verbs/verbs.module';
 import { WordsModule } from './words/words.module';
+import { PracticeModule } from './practice/practice.module';
 // Controller
 import { AppController } from './app.controller';
 // Service
@@ -20,6 +21,7 @@ import { AppService } from './app.service';
     PhrasesModule,
     VerbsModule,
     WordsModule,
+    PracticeModule,
     ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [AppController],
