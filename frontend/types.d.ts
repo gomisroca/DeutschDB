@@ -37,3 +37,9 @@ export type Phrase = {
   german: string;
   english: string;
 };
+
+export type PracticeItem =
+  | (Word & { type: 'word' })
+  | (Verb & { type: 'verb' })
+  | (GrammarTopic & { type: 'grammar' })
+  | (Phrase & { type: 'phrase' });
