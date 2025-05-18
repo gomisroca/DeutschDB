@@ -15,6 +15,7 @@ import { VerbConjugation } from 'types';
 })
 export class VerbsConjugationComponent {
   @Input({ required: true }) conjugation!: VerbConjugation;
+  @Input() practice: boolean = false;
 
   tense: string = '';
   mood: string = '';

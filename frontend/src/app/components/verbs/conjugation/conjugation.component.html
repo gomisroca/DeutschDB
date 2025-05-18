@@ -12,6 +12,7 @@
     <li class="text-sm text-center">{{ form }}</li>
     }
   </ul>
+  @if (!practice) {
   <section class="flex items-center justify-center">
     <stylized-link
       label="Update"
@@ -19,4 +20,5 @@
     ></stylized-link>
     <stylized-button label="Delete" (click)="confirmDelete()"></stylized-button>
   </section>
+  }
 </article>
