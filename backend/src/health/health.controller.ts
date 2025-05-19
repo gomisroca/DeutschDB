@@ -19,15 +19,15 @@ export class HealthController {
     return this.health.check([
       () =>
         this.http.pingCheck(
-          'boss-macros',
+          'words',
           this.configService.get('BASE_URL') ??
-            'http://localhost:3000' + '/boss-macros',
+            'http://localhost:3000' + '/words',
         ),
       () =>
         this.http.pingCheck(
-          'crafting-macros',
+          'verbs',
           this.configService.get('BASE_URL') ??
-            'http://localhost:3000' + '/crafting-macros',
+            'http://localhost:3000' + '/verbs',
         ),
     ]);
   }
