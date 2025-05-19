@@ -18,12 +18,12 @@ export class HealthController {
       () =>
         this.http.pingCheck(
           'words',
-          process.env.BASE_URL ?? 'http://localhost:3000' + '/words',
+          (process.env.BASE_URL ?? 'http://localhost:3000') + '/words',
         ),
       () =>
         this.http.pingCheck(
           'verbs',
-          process.env.BASE_URL ?? 'http://localhost:3000' + '/verbs',
+          (process.env.BASE_URL ?? 'http://localhost:3000') + '/verbs',
         ),
     ]);
   }
