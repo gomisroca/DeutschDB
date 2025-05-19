@@ -11,7 +11,7 @@
       <p>{{ practice.level }}</p>
     </section>
   </div>
-  <p>{{ practice.definition }}</p>
+  <p class="text-center">{{ practice.definition }}</p>
   }@else {
   <h1 class="text-2xl font-bold">{{ practice.word }}</h1>
   } } @case ('verb'){
@@ -27,7 +27,7 @@
     <h1 class="text-2xl font-bold">{{ practice.title }}</h1>
     <p class="text-sm">{{ practice.level }}</p>
   </div>
-  <p class="px-4">{{ practice.body }}</p>
+  <p class="px-4 text-center">{{ practice.body }}</p>
   <section class="flex flex-col gap-1 text-sm">
     @for(example of practice.examples; track example) {
     <p>{{ example }}</p>
@@ -37,11 +37,11 @@
   <h1 class="text-2xl font-bold">{{ practice.title }}</h1>
   } } @case ('phrase'){
   <div class="text-center flex flex-col gap-4">
-    <section class="flex gap-2 text-sm">
+    <section class="flex gap-2 text-sm items-center justify-center">
       <p>{{ practice.topic }}</p>
       <p>{{ practice.level }}</p>
     </section>
-    <section class="flex gap-1 flex-col">
+    <section class="flex gap-1 flex-col items-center justify-center">
       <h1 class="text-2xl font-bold">
         <img
           src="https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png"
