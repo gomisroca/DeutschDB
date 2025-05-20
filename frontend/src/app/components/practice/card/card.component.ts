@@ -12,6 +12,8 @@ import { PracticeItem } from 'types';
 export class PracticeCardComponent {
   @Input({ required: true }) practice!: PracticeItem;
   showOrHide: boolean = false;
+  ENorDE: string = 'DE';
+  lang: string[] = ['DE', 'EN'];
 
   showAnswer() {
     this.showOrHide = !this.showOrHide;
@@ -21,5 +23,8 @@ export class PracticeCardComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['practice']) this.showOrHide = false;
+    if (changes['practice'].currentValue.type === 'phrase') {
+      this.ENorDE = this.lang[Math.floor(Math.random() * this.lang.length)];
+    }
   }
 }
