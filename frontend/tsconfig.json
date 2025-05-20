@@ -23,7 +23,7 @@
       "@components/*": ["src/app/components/*"],
       "@services/*": ["src/app/services/*"],
       "@assets/*": ["src/assets/*"],
-      "@environment/*": ["src/environment/*"],
+      "@environments/*": ["src/environments/*"],
       "@shared/*": ["src/app/shared/*"]
     }
   },
