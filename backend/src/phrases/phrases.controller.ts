@@ -52,8 +52,8 @@ export class PhrasesController {
     data: {
       topic: string;
       level: Level;
-      german: string;
-      english: string;
+      original: string;
+      translation: string;
     },
   ): Promise<Phrase> {
     return this.phrasesService.create(data);
@@ -66,8 +66,8 @@ export class PhrasesController {
     data: {
       topic?: string;
       level?: Level;
-      german?: string;
-      english?: string;
+      original?: string;
+      translation?: string;
     },
   ): Promise<Phrase> {
     return this.phrasesService.update({ where: { id }, data });

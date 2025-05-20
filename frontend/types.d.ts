@@ -6,6 +6,7 @@ export type Word = {
   plural: string;
   level: string;
   definition: string;
+  translation: string;
   examples: string[];
 };
 
@@ -34,8 +35,8 @@ export type Phrase = {
   id: string;
   topic: string;
   level: string;
-  german: string;
-  english: string;
+  original: string;
+  translation: string;
 };
 
 export type PracticeItem =

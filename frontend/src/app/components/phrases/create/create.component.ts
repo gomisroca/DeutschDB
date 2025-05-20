@@ -13,8 +13,8 @@ export class PhrasesCreateComponent {
   form: Omit<Phrase, 'id'> = {
     topic: '',
     level: '',
-    german: '',
-    english: '',
+    original: '',
+    translation: '',
   };
 
   private phrasesService = inject(PhrasesService);
@@ -24,8 +24,8 @@ export class PhrasesCreateComponent {
       .create({
         topic: this.form.topic,
         level: this.form.level,
-        german: this.form.german,
-        english: this.form.english,
+        original: this.form.original,
+        translation: this.form.translation,
       })
       .subscribe((phrase) => {
         console.log('Created phrase:', phrase);

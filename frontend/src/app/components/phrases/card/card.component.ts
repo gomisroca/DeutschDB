@@ -23,7 +23,7 @@ export class PhrasesCardComponent {
 
   confirmDelete() {
     const confirmed = window.confirm(
-      `Are you sure you want to delete "${this.phrase?.german}"?`
+      `Are you sure you want to delete "${this.phrase?.original}"?`
     );
 
     if (confirmed && this.phrase) {

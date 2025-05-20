@@ -58,6 +58,7 @@ export class WordsController {
       plural?: string;
       level: Level;
       definition: string;
+      translation: string;
       examples?: string[];
     },
   ): Promise<Word> {
@@ -75,6 +76,7 @@ export class WordsController {
       plural?: string;
       level?: Level;
       definition?: string;
+      translation?: string;
       examples?: string[];
     },
   ): Promise<Word> {

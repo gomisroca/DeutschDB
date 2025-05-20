@@ -15,8 +15,8 @@ export class PhrasesUpdateComponent {
     id: '',
     topic: '',
     level: '',
-    german: '',
-    english: '',
+    original: '',
+    translation: '',
   };
 
   constructor(
@@ -41,8 +41,8 @@ export class PhrasesUpdateComponent {
         id: this.form.id,
         topic: this.form.topic,
         level: this.form.level,
-        german: this.form.german,
-        english: this.form.english,
+        original: this.form.original,
+        translation: this.form.translation,
       })
       .subscribe((phrase) => {
         console.log('Updated phrase:', phrase);

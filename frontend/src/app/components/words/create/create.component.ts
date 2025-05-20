@@ -17,6 +17,7 @@ export class WordsCreateComponent {
     plural: '',
     level: '',
     definition: '',
+    translation: '',
     examplesInput: '',
     examples: [],
   };
@@ -37,6 +38,7 @@ export class WordsCreateComponent {
         plural: this.form.plural,
         level: this.form.level,
         definition: this.form.definition,
+        translation: this.form.translation,
         examples: this.form.examples,
       })
       .subscribe((word) => {

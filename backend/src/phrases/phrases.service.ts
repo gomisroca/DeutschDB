@@ -45,7 +45,7 @@ export class PhrasesService {
     try {
       const existingPhrase = await this.prisma.phrase.findFirst({
         where: {
-          german: data.german,
+          original: data.original,
         },
       });
       if (existingPhrase) throw new Error('Phrase already exists');

@@ -5,6 +5,7 @@
   <div class="text-center">
     <h1 class="text-2xl font-bold">{{ practice.word }}</h1>
     <p class="text-sm">{{ practice.plural }}</p>
+    <p class="text-sm">{{ practice.translation }}</p>
     <section class="flex gap-2 text-sm">
       <p>{{ practice.type[0].toUpperCase() + practice.type.slice(1) }}</p>
       <p>{{ practice.gender[0].toUpperCase() + practice.gender.slice(1) }}</p>
@@ -13,7 +14,9 @@
   </div>
   <p class="text-center">{{ practice.definition }}</p>
   }@else {
-  <h1 class="text-2xl font-bold">{{ practice.word }}</h1>
+  <h1 class="text-2xl font-bold">
+    {{ original ? practice.word : practice.translation }}
+  </h1>
   } } @case ('verb'){
   <h1 class="text-2xl font-bold">{{ practice.verb }}</h1>
   @if(showOrHide) { @for(conjugation of practice.conjugations; track
@@ -43,38 +46,38 @@
     </section>
     <section class="flex gap-1 flex-col items-center justify-center">
       <h1 class="text-2xl font-bold">
-        @if(ENorDE === 'DE') {
+        @if(original === true) {
         <img
           src="https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png"
           alt="Flag of Germany"
           class="inline-block w-5"
         />
-        {{ practice.german }}
+        {{ practice.original }}
         } @else {
         <img
           src="https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png"
           alt="Flag of Germany"
           class="inline-block w-5"
         />
-        {{ practice.english }}
+        {{ practice.translation }}
         }
       </h1>
       @if(showOrHide) {
       <h1 class="text-2xl font-bold">
-        @if(ENorDE === 'DE') {
+        @if(original === true) {
         <img
           src="https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png"
           alt="Flag of Germany"
           class="inline-block w-5"
         />
-        {{ practice.english }}
+        {{ practice.translation }}
         } @else {
         <img
           src="https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png"
           alt="Flag of Germany"
           class="inline-block w-5"
         />
-        {{ practice.german }}
+        {{ practice.original }}
         }
       </h1>
       }
