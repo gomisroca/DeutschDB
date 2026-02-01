@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { PracticeService } from './practice.service';
-import { GrammarTopic, Phrase, Verb, Word } from '@prisma/client';
+import { GrammarTopic, Phrase, Verb, Word } from '@generated/prisma/client';
 
 type PracticeItem =
   | (Word & { type: 'word' })

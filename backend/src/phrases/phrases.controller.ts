@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { PhrasesService } from './phrases.service';
-import { Level, Prisma, Phrase } from '@prisma/client';
+import { Level, Prisma, Phrase } from '@generated/prisma/client';
 
 @Controller('phrases')
 export class PhrasesController {

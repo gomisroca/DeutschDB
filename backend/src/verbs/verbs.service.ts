@@ -9,7 +9,7 @@ import {
   VerbConjugation,
   VerbMood,
   VerbTense,
-} from '@prisma/client';
+} from '@generated/prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()

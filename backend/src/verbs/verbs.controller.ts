@@ -9,7 +9,12 @@ import {
   Query,
 } from '@nestjs/common';
 import { VerbsService } from './verbs.service';
-import { Verb, VerbConjugation, VerbMood, VerbTense } from '@prisma/client';
+import {
+  Verb,
+  VerbConjugation,
+  VerbMood,
+  VerbTense,
+} from '@generated/prisma/client';
 
 @Controller('verbs')
 export class VerbsController {

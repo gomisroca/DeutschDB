@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { GrammarTopic, Prisma } from '@prisma/client';
+import { GrammarTopic, Prisma } from '@generated/prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()

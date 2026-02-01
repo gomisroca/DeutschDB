@@ -1,11 +1,10 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
 }
 
 enum WordType {
@@ -37,15 +36,15 @@ enum Level {
 }
 
 model Word {
-  id         String   @id @default(uuid())
-  word       String
-  type       WordType
-  gender     Gender?
-  plural     String?
-  level      Level
-  definition String
+  id          String   @id @default(uuid())
+  word        String
+  type        WordType
+  gender      Gender?
+  plural      String?
+  level       Level
+  definition  String
   translation String
-  examples   String[]
+  examples    String[]
 }
 
 // English	        German	        Use Case Example
@@ -81,19 +80,19 @@ enum VerbMood {
 }
 
 model VerbConjugation {
-  id    String    @id @default(uuid())
-  verb  Verb      @relation(fields: [verbId], references: [id], onDelete: Cascade)
+  id     String    @id @default(uuid())
+  verb   Verb      @relation(fields: [verbId], references: [id], onDelete: Cascade)
   verbId String
-  tense VerbTense
-  mood  VerbMood
-  forms String[]
+  tense  VerbTense
+  mood   VerbMood
+  forms  String[]
 
   @@unique([verbId, tense, mood])
 }
 
 model Verb {
-  id       String   @id @default(uuid())
-  verb     String
+  id           String            @id @default(uuid())
+  verb         String
   conjugations VerbConjugation[]
 }
 
@@ -106,9 +105,9 @@ model GrammarTopic {
 }
 
 model Phrase {
-  id      String @id @default(uuid())
-  topic   String
-  level   Level
-  original String
+  id          String @id @default(uuid())
+  topic       String
+  level       Level
+  original    String
   translation String
 }

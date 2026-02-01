@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { GrammarService } from './grammar.service';
-import { GrammarTopic, Level, Prisma } from '@prisma/client';
+import { GrammarTopic, Level, Prisma } from '@generated/prisma/client';
 
 @Controller('grammar')
 export class GrammarController {

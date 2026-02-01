@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { GrammarTopic, Phrase, Verb, Word } from '@prisma/client';
+import { GrammarTopic, Phrase, Verb, Word } from '@generated/prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 type PracticeItem =

@@ -9,7 +9,13 @@ import {
   Query,
 } from '@nestjs/common';
 import { WordsService } from './words.service';
-import { Gender, Level, Prisma, Word, WordType } from '@prisma/client';
+import {
+  Gender,
+  Level,
+  Prisma,
+  Word,
+  WordType,
+} from '@generated/prisma/client';
 
 @Controller('words')
 export class WordsController {
