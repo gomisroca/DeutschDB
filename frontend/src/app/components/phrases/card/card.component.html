@@ -1,5 +1,5 @@
 <article
-  class="border border-zinc-900 flex flex-col gap-2 items-center justify-center w-52"
+  class="border rounded-lg border-zinc-900 bg-zinc-950 shadow-md flex flex-col gap-2 items-center justify-center max-w-md p-4 hover:px-10 transition-all duration-300"
 >
   <div class="text-center flex flex-col gap-4">
     <section class="flex gap-2 text-sm items-center justify-center">
@@ -7,25 +7,29 @@
       <p>{{ phrase.level }}</p>
     </section>
     <section class="flex gap-1 flex-col items-center justify-center">
-      <h1 class="text-2xl font-bold">
+      <div class="flex gap-2 items-center justify-center">
         <img
           src="https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png"
           alt="Flag of Germany"
           class="inline-block w-5"
         />
-        {{ phrase.original }}
-      </h1>
-      <h1 class="text-2xl font-bold">
+        <h1 class="text-2xl font-bold">
+          {{ phrase.original }}
+        </h1>
+      </div>
+      <div class="flex gap-2 items-center justify-center">
         <img
           src="https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png"
           alt="Flag of Germany"
           class="inline-block w-5"
         />
-        {{ phrase.translation }}
-      </h1>
+        <h1 class="text-2xl font-bold">
+          {{ phrase.translation }}
+        </h1>
+      </div>
     </section>
   </div>
-  <section class="flex items-center justify-center">
+  <section class="flex items-center justify-center gap-2">
     <stylized-link
       label="Update"
       [path]="'/phrases/update/' + phrase.id"

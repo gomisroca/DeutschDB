@@ -1,5 +1,5 @@
 <article
-  class="border border-zinc-900 flex flex-col gap-2 items-center justify-center w-52 px-2"
+  class="border rounded-lg border-zinc-900 bg-zinc-950 shadow-md flex flex-col gap-2 items-center justify-center max-w-md p-4"
 >
   <div class="text-center pt-2">
     <section class="flex gap-2 text-sm">
@@ -9,16 +9,19 @@
   </div>
   <ul class="grid grid-cols-3 gap-2">
     @for (form of conjugation.forms; track form) {
-    <li class="text-sm text-center">{{ form }}</li>
+      <li class="text-sm text-center">{{ form }}</li>
     }
   </ul>
   @if (!practice) {
-  <section class="flex items-center justify-center">
-    <stylized-link
-      label="Update"
-      [path]="'/verbs/update/' + conjugation.id"
-    ></stylized-link>
-    <stylized-button label="Delete" (click)="confirmDelete()"></stylized-button>
-  </section>
+    <section class="flex items-center justify-center gap-2">
+      <stylized-link
+        label="Update"
+        [path]="'/verbs/update/' + conjugation.id"
+      ></stylized-link>
+      <stylized-button
+        label="Delete"
+        (click)="confirmDelete()"
+      ></stylized-button>
+    </section>
   }
 </article>
