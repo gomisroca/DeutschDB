@@ -1,17 +1,14 @@
 <form
   (ngSubmit)="onSubmit()"
   #verbForm="ngForm"
-  class="flex flex-col gap-4 mx-auto items-center justify-center"
+  class="mx-auto w-full max-w-md bg-zinc-950 border border-zinc-800 rounded-xl p-6 flex flex-col gap-5"
 >
+  <!-- Tense -->
   <div>
-    <label for="tense" class="block text-sm font-medium text-zinc-400"
+    <label for="tense" class="block mb-1 text-sm font-medium text-zinc-400"
       >Tense</label
     >
-    <select
-      name="tense"
-      [(ngModel)]="form.tense"
-      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
-    >
+    <select name="tense" [(ngModel)]="form.tense" class="input">
       <option selected value="" class="hidden">Present, Simple Past...</option>
       <option value="present">Present</option>
       <option value="simple_past">Simple Past</option>
@@ -21,15 +18,13 @@
       <option value="future_2">Future II</option>
     </select>
   </div>
+
+  <!-- Mood -->
   <div>
-    <label for="mood" class="block text-sm font-medium text-zinc-400"
+    <label for="mood" class="block mb-1 text-sm font-medium text-zinc-400"
       >Mood</label
     >
-    <select
-      name="mood"
-      [(ngModel)]="form.mood"
-      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
-    >
+    <select name="mood" [(ngModel)]="form.mood" class="input">
       <option selected value="" class="hidden">
         Indicative, Subjunctive...
       </option>
@@ -41,22 +36,26 @@
       <option value="participle">Participle</option>
     </select>
   </div>
+
+  <!-- Forms -->
   <div>
-    <label for="forms" class="block text-sm font-medium text-zinc-400"
+    <label for="forms" class="block mb-1 text-sm font-medium text-zinc-400"
       >Forms (split with ',')</label
     >
     <textarea
       name="forms"
       placeholder="Gehe,gehst,geht..."
       [(ngModel)]="form.formsInput"
-      class="bg-zinc-900 px-2 py-1 w-60 focus:w-72 transition-all duration-300"
+      class="input"
     ></textarea>
   </div>
+
+  <!-- Submit -->
   <button
     type="submit"
     [disabled]="!verbForm.form.valid"
-    class="bg-zinc-900 hover:bg-blue-500 active:bg-blue-700 hover:font-semibold transition-all duration-300 py-2 px-4 hover:px-6 text-center"
+    class="mt-2 w-full rounded-lg bg-blue-600 hover:bg-blue-500 active:bg-blue-700 disabled:bg-zinc-800 disabled:text-zinc-500 transition-all py-2.5 font-medium"
   >
-    Create
+    Update verb
   </button>
 </form>
