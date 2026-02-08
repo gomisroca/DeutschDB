@@ -7,10 +7,11 @@ import { PhrasesService } from '@services/phrases.service';
 import { NavigationService } from '@services/navigation.service';
 // Types
 import { Phrase } from 'types';
+import { CardComponent } from '@app/components/ui/card/card.component';
 
 @Component({
   selector: 'phrases-card',
-  imports: [LinkComponent, ButtonComponent],
+  imports: [LinkComponent, ButtonComponent, CardComponent],
   templateUrl: './card.component.html',
 })
 export class PhrasesCardComponent {
@@ -18,12 +19,12 @@ export class PhrasesCardComponent {
 
   constructor(
     private phrasesService: PhrasesService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
   ) {}
 
   confirmDelete() {
     const confirmed = window.confirm(
-      `Are you sure you want to delete "${this.phrase?.original}"?`
+      `Are you sure you want to delete "${this.phrase?.original}"?`,
     );
 
     if (confirmed && this.phrase) {

@@ -1,7 +1,5 @@
-<article
-  class="border rounded-lg border-zinc-900 bg-zinc-950 shadow-md flex flex-col gap-2 items-center justify-center max-w-md p-4 hover:px-10 transition-all duration-300"
->
-  <div class="text-center flex flex-col gap-4">
+<app-card>
+  <section card-header>
     <section class="flex gap-2 text-sm items-center justify-center">
       <p>{{ phrase.topic }}</p>
       <p>{{ phrase.level }}</p>
@@ -28,12 +26,12 @@
         </h1>
       </div>
     </section>
-  </div>
-  <section class="flex items-center justify-center gap-2">
+  </section>
+  <section card-actions>
     <stylized-link
       label="Update"
       [path]="'/phrases/update/' + phrase.id"
     ></stylized-link>
     <stylized-button label="Delete" (click)="confirmDelete()"></stylized-button>
   </section>
-</article>
+</app-card>

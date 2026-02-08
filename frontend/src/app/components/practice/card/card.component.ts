@@ -3,10 +3,11 @@ import { ButtonComponent } from '@app/components/ui/button/button.component';
 import { VerbsConjugationComponent } from '@app/components/verbs/conjugation/conjugation.component';
 // Types
 import { PracticeItem } from 'types';
+import { CardComponent } from '@app/components/ui/card/card.component';
 
 @Component({
   selector: 'practice-card',
-  imports: [ButtonComponent, VerbsConjugationComponent],
+  imports: [ButtonComponent, VerbsConjugationComponent, CardComponent],
   templateUrl: './card.component.html',
 })
 export class PracticeCardComponent {

@@ -7,10 +7,11 @@ import { GrammarService } from '@services/grammar.service';
 import { NavigationService } from '@services/navigation.service';
 // Types
 import { GrammarTopic } from 'types';
+import { CardComponent } from '@app/components/ui/card/card.component';
 
 @Component({
   selector: 'grammar-card',
-  imports: [LinkComponent, ButtonComponent],
+  imports: [LinkComponent, ButtonComponent, CardComponent],
   templateUrl: './card.component.html',
 })
 export class GrammarCardComponent {
@@ -18,12 +19,12 @@ export class GrammarCardComponent {
 
   constructor(
     private grammarService: GrammarService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
   ) {}
 
   confirmDelete() {
     const confirmed = window.confirm(
-      `Are you sure you want to delete "${this.topic?.title}"?`
+      `Are you sure you want to delete "${this.topic?.title}"?`,
     );
 
     if (confirmed && this.topic) {

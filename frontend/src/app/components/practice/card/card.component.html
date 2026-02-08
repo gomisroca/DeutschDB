@@ -1,108 +1,125 @@
-<article
-  class="border rounded-lg border-zinc-900 bg-zinc-950 shadow-md flex flex-col gap-2 items-center justify-center max-w-md p-4 hover:px-10 transition-all duration-300"
->
+<app-card>
   @switch (practice.type) {
+    <!-- WORD -->
     @case ("word") {
       @if (showOrHide) {
-        <div class="text-center">
+        <section card-header class="text-center">
           <h1 class="text-2xl font-bold">{{ practice.word }}</h1>
           <p class="text-sm">{{ practice.plural }}</p>
           <p class="text-sm">{{ practice.translation }}</p>
-          <section class="flex gap-2 text-sm">
-            <p>{{ practice.type[0].toUpperCase() + practice.type.slice(1) }}</p>
-            <p>
-              {{ practice.gender[0].toUpperCase() + practice.gender.slice(1) }}
-            </p>
+
+          <div class="flex gap-2 text-sm justify-center">
+            <p class="capitalize">{{ practice.type }}</p>
+            <p class="capitalize">{{ practice.gender }}</p>
             <p>{{ practice.level }}</p>
-          </section>
-        </div>
-        <p class="text-center">{{ practice.definition }}</p>
+          </div>
+        </section>
+
+        <p class="text-center">
+          {{ practice.definition }}
+        </p>
       } @else {
-        <h1 class="text-2xl font-bold">
+        <h1 class="text-2xl font-bold text-center">
           {{ original ? practice.word : practice.translation }}
         </h1>
       }
     }
+
+    <!-- VERB -->
     @case ("verb") {
-      <h1 class="text-2xl font-bold">{{ practice.verb }}</h1>
+      <section class="text-center">
+        <h1 class="text-2xl font-bold">
+          {{ practice.verb }}
+        </h1>
+      </section>
+
       @if (showOrHide) {
-        @for (conjugation of practice.conjugations; track conjugation.id) {
-          <verbs-conjugation
-            [conjugation]="conjugation"
-            [practice]="true"
-          ></verbs-conjugation>
-        }
+        <section class="flex flex-col gap-1 w-full">
+          @for (conjugation of practice.conjugations; track conjugation.id) {
+            <verbs-conjugation [conjugation]="conjugation" [practice]="true" />
+          }
+        </section>
       }
     }
+
+    <!-- GRAMMAR -->
     @case ("grammar") {
       @if (showOrHide) {
-        <div class="text-center">
-          <h1 class="text-2xl font-bold">{{ practice.title }}</h1>
+        <section card-header class="text-center">
+          <h1 class="text-2xl font-bold">
+            {{ practice.title }}
+          </h1>
           <p class="text-sm">{{ practice.level }}</p>
-        </div>
-        <p class="px-4 text-center">{{ practice.body }}</p>
-        <section class="flex flex-col gap-1 text-sm">
-          @for (example of practice.examples; track example) {
-            <p>{{ example }}</p>
-          }
+        </section>
+
+        <section class="text-center px-4">
+          <p>{{ practice.body }}</p>
+
+          <div class="flex flex-col gap-1 text-sm pt-2">
+            @for (example of practice.examples; track example) {
+              <p>{{ example }}</p>
+            }
+          </div>
         </section>
       } @else {
-        <h1 class="text-2xl font-bold">{{ practice.title }}</h1>
+        <h1 class="text-2xl font-bold text-center">
+          {{ practice.title }}
+        </h1>
       }
     }
+
+    <!-- PHRASE -->
     @case ("phrase") {
-      <div class="text-center flex flex-col gap-4">
-        <section class="flex gap-2 text-sm items-center justify-center">
+      <section class="text-center flex flex-col gap-4">
+        <div class="flex gap-2 text-sm justify-center">
           <p>{{ practice.topic }}</p>
           <p>{{ practice.level }}</p>
-        </section>
-        <section class="flex gap-1 flex-col items-center justify-center">
-          <h1 class="text-2xl font-bold">
-            @if (original === true) {
-              <img
-                src="https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png"
-                alt="Flag of Germany"
-                class="inline-block w-5"
-              />
-              {{ practice.original }}
-            } @else {
-              <img
-                src="https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png"
-                alt="Flag of the United Kingdom"
-                class="inline-block w-5"
-              />
-              {{ practice.translation }}
-            }
+        </div>
+
+        <div class="flex flex-col gap-2 items-center">
+          <!-- Primary -->
+          <h1 class="text-2xl font-bold flex items-center gap-2">
+            <img
+              [src]="
+                original
+                  ? 'https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png'
+                  : 'https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png'
+              "
+              class="w-5"
+            />
+
+            {{ original ? practice.original : practice.translation }}
           </h1>
+
+          <!-- Secondary -->
           @if (showOrHide) {
-            <h1 class="text-2xl font-bold">
-              @if (original === true) {
-                <img
-                  src="https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png"
-                  alt="Flag of the United Kingdom"
-                  class="inline-block w-5"
-                />
-                {{ practice.translation }}
-              } @else {
-                <img
-                  src="https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png"
-                  alt="Flag of Germany"
-                  class="inline-block w-5"
-                />
-                {{ practice.original }}
-              }
+            <h1 class="text-2xl font-bold flex items-center gap-2">
+              <img
+                [src]="
+                  original
+                    ? 'https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png'
+                    : 'https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png'
+                "
+                class="w-5"
+              />
+
+              {{ original ? practice.translation : practice.original }}
             </h1>
           }
-        </section>
-      </div>
+        </div>
+      </section>
     }
+
     @default {
-      <div>Unknown type</div>
+      <p>Unknown type</p>
     }
   }
 
-  <stylized-button
-    label="{{ showOrHide ? 'Hide' : 'Show' }} answer"
-    (click)="showAnswer()"
-  ></stylized-button>
-</article>
+  <!-- ACTIONS -->
+  <section card-actions>
+    <stylized-button
+      [label]="showOrHide ? 'Hide answer' : 'Show answer'"
+      (click)="showAnswer()"
+    />
+  </section>
+</app-card>

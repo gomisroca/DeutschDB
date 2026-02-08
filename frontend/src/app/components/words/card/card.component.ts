@@ -7,10 +7,11 @@ import { WordsService } from '@services/words.service';
 import { NavigationService } from '@services/navigation.service';
 // Types
 import { Word } from 'types';
+import { CardComponent } from '@app/components/ui/card/card.component';
 
 @Component({
   selector: 'words-card',
-  imports: [LinkComponent, ButtonComponent],
+  imports: [LinkComponent, ButtonComponent, CardComponent],
   templateUrl: './card.component.html',
 })
 export class WordsCardComponent {
@@ -18,12 +19,12 @@ export class WordsCardComponent {
 
   constructor(
     private wordService: WordsService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
   ) {}
 
   confirmDelete() {
     const confirmed = window.confirm(
-      `Are you sure you want to delete "${this.word?.word}"?`
+      `Are you sure you want to delete "${this.word?.word}"?`,
     );
 
     if (confirmed && this.word) {
