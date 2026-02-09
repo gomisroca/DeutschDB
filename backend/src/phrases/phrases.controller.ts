@@ -21,8 +21,8 @@ export class PhrasesController {
   constructor(private readonly phrasesService: PhrasesService) {}
 
   @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.phrasesService.findOne({ id });
+  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.phrasesService.findOne({ id });
   }
 
   @Get()
@@ -32,7 +32,7 @@ export class PhrasesController {
   ) {
     const { level, skip, take, cursor } = query;
 
-    return this.phrasesService.findAll({
+    return await this.phrasesService.findAll({
       where: {
         ...(level && { level }),
       },
@@ -44,23 +44,23 @@ export class PhrasesController {
   }
 
   @Post()
-  create(@Body() data: CreatePhraseDto) {
-    return this.phrasesService.create(data);
+  async create(@Body() data: CreatePhraseDto) {
+    return await this.phrasesService.create(data);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() data: UpdatePhraseDto,
   ) {
-    return this.phrasesService.update({
+    return await this.phrasesService.update({
       where: { id },
       data,
     });
   }
 
   @Delete(':id')
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.phrasesService.remove({ id });
+  async remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.phrasesService.remove({ id });
   }
 }

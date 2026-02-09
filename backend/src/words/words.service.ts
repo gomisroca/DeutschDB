@@ -17,7 +17,7 @@ export class WordsService {
   }
 
   async findAll(params: Prisma.WordFindManyArgs): Promise<Word[]> {
-    return this.prisma.word.findMany(params);
+    return await this.prisma.word.findMany(params);
   }
 
   async create(data: Prisma.WordCreateInput): Promise<Word> {

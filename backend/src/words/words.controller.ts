@@ -17,8 +17,8 @@ export class WordsController {
   constructor(private readonly wordsService: WordsService) {}
 
   @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.wordsService.findOne({ id });
+  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.wordsService.findOne({ id });
   }
 
   @Get()
@@ -28,7 +28,7 @@ export class WordsController {
   ) {
     const { type, level, skip, take, cursor } = query;
 
-    return this.wordsService.findAll({
+    return await this.wordsService.findAll({
       where: {
         ...(type && { type }),
         ...(level && { level }),
@@ -41,23 +41,23 @@ export class WordsController {
   }
 
   @Post()
-  create(@Body() data: CreateWordDto) {
-    return this.wordsService.create(data);
+  async create(@Body() data: CreateWordDto) {
+    return await this.wordsService.create(data);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() data: UpdateWordDto,
   ) {
-    return this.wordsService.update({
+    return await this.wordsService.update({
       where: { id },
       data,
     });
   }
 
   @Delete(':id')
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.wordsService.remove({ id });
+  async remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.wordsService.remove({ id });
   }
 }

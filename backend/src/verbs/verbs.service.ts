@@ -25,7 +25,7 @@ export class VerbsService {
   }
 
   async findAll(params: Prisma.VerbFindManyArgs): Promise<Verb[]> {
-    return this.prisma.verb.findMany(params);
+    return await this.prisma.verb.findMany(params);
   }
 
   async create(data: {
@@ -51,7 +51,7 @@ export class VerbsService {
         verbId = newVerb.id;
       }
 
-      return this.prisma.verbConjugation.create({
+      return await this.prisma.verbConjugation.create({
         data: {
           verbId: verbId!,
           tense: data.tense,

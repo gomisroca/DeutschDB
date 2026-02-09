@@ -17,8 +17,8 @@ export class VerbsController {
   constructor(private readonly verbsService: VerbsService) {}
 
   @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.verbsService.findOne({ id });
+  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.verbsService.findOne({ id });
   }
 
   @Get()
@@ -28,7 +28,7 @@ export class VerbsController {
   ) {
     const { skip, take, cursor } = query;
 
-    return this.verbsService.findAll({
+    return await this.verbsService.findAll({
       skip,
       take,
       cursor: cursor ? { id: cursor } : undefined,
@@ -37,26 +37,26 @@ export class VerbsController {
   }
 
   @Post()
-  create(
+  async create(
     @Body()
     data: CreateVerbDto,
   ) {
-    return this.verbsService.create(data);
+    return await this.verbsService.create(data);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() data: UpdateVerbDto,
   ) {
-    return this.verbsService.update({
+    return await this.verbsService.update({
       where: { id },
       data,
     });
   }
 
   @Delete(':id')
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.verbsService.remove({ id });
+  async remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.verbsService.remove({ id });
   }
 }

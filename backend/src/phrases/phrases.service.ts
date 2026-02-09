@@ -17,12 +17,12 @@ export class PhrasesService {
   }
 
   async findAll(params: Prisma.PhraseFindManyArgs): Promise<Phrase[]> {
-    return this.prisma.phrase.findMany(params);
+    return await this.prisma.phrase.findMany(params);
   }
 
   async create(data: Prisma.PhraseCreateInput): Promise<Phrase> {
     try {
-      return this.prisma.phrase.create({ data });
+      return await this.prisma.phrase.create({ data });
     } catch (error) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
@@ -36,7 +36,7 @@ export class PhrasesService {
 
   async update(params: Prisma.PhraseUpdateArgs): Promise<Phrase> {
     try {
-      return this.prisma.phrase.update(params);
+      return await this.prisma.phrase.update(params);
     } catch (error) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
