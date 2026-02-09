@@ -19,37 +19,13 @@ export class VerbsService {
   async findOne(
     where: Prisma.VerbConjugationWhereUniqueInput,
   ): Promise<VerbConjugation> {
-    try {
-      return this.prisma.verbConjugation.findUniqueOrThrow({
-        where,
-      });
-    } catch {
-      throw new NotFoundException('Verb by given ID does not exist');
-    }
+    return await this.prisma.verbConjugation.findUniqueOrThrow({
+      where,
+    });
   }
 
-  async findAll(params: {
-    skip?: number;
-    take?: number;
-    cursor?: Prisma.VerbWhereUniqueInput;
-    where?: Prisma.VerbWhereInput;
-    orderBy?: Prisma.VerbOrderByWithRelationInput;
-  }): Promise<Verb[]> {
-    try {
-      const { skip, take, cursor, where, orderBy } = params;
-      return this.prisma.verb.findMany({
-        skip,
-        take,
-        cursor,
-        where,
-        orderBy,
-        include: {
-          conjugations: true,
-        },
-      });
-    } catch {
-      throw new NotFoundException('No verbs found by given parameters');
-    }
+  async findAll(params: Prisma.VerbFindManyArgs): Promise<Verb[]> {
+    return this.prisma.verb.findMany(params);
   }
 
   async create(data: {
@@ -75,17 +51,6 @@ export class VerbsService {
         verbId = newVerb.id;
       }
 
-      const existingConjugation = await this.prisma.verbConjugation.findUnique({
-        where: {
-          verbId_tense_mood: {
-            verbId: verbId!,
-            tense: data.tense,
-            mood: data.mood,
-          },
-        },
-      });
-      if (existingConjugation) throw new Error('Verb already exists');
-
       return this.prisma.verbConjugation.create({
         data: {
           verbId: verbId!,
@@ -94,44 +59,46 @@ export class VerbsService {
           forms: data.forms,
         },
       });
-    } catch {
-      throw new ConflictException('Verb already exists');
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException('Verb already exists');
+      }
+      throw error;
     }
   }
 
-  async update(params: {
-    where: Prisma.VerbConjugationWhereUniqueInput;
-    data: Prisma.VerbConjugationUpdateInput;
-  }): Promise<VerbConjugation> {
+  async update(
+    params: Prisma.VerbConjugationUpdateArgs,
+  ): Promise<VerbConjugation> {
     try {
-      const { where, data } = params;
-
-      await this.prisma.verbConjugation.findUniqueOrThrow({
-        where,
-      });
-
-      return this.prisma.verbConjugation.update({
-        where,
-        data,
-      });
-    } catch {
-      throw new NotFoundException('Verb by given ID does not exist');
+      return await this.prisma.verbConjugation.update(params);
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException('Verb not found');
+      }
+      throw error;
     }
   }
 
   async remove(where: Prisma.VerbConjugationWhereUniqueInput): Promise<void> {
     try {
-      await this.prisma.verbConjugation.findUniqueOrThrow({
-        where,
-      });
-
       await this.prisma.verbConjugation.delete({
         where,
       });
-
-      return Promise.resolve();
-    } catch {
-      throw new NotFoundException('Verb by given ID does not exist');
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException('Verb not found');
+      }
+      throw error;
     }
   }
 }
