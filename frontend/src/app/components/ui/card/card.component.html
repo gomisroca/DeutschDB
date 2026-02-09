@@ -1,19 +1,17 @@
 <article
-  class="border rounded-lg border-zinc-900 bg-zinc-950 shadow-md flex flex-col gap-2 items-center justify-center max-w-md p-4 hover:px-10 transition-all duration-300"
+  class="border rounded-lg border-zinc-900 bg-zinc-950 shadow-md flex flex-col gap-2 items-center justify-center max-w-md p-4"
 >
-  @if (hasHeader) {
-    <header class="text-center flex flex-col gap-4">
-      <ng-content select="[card-header]"></ng-content>
-    </header>
-  }
+  <header class="text-center flex flex-col gap-1">
+    <ng-content select="[card-header]"></ng-content>
+  </header>
 
-  <section class="px-4 text-center flex flex-col items-center justify-center">
+  <section
+    class="px-4 text-center flex flex-col gap-2 items-center justify-center"
+  >
     <ng-content></ng-content>
   </section>
 
-  @if (hasActions) {
-    <footer class="flex items-center justify-center gap-2">
-      <ng-content select="[card-actions]"></ng-content>
-    </footer>
-  }
+  <footer class="flex flex-row items-center justify-center gap-2">
+    <ng-content select="[card-actions]"></ng-content>
+  </footer>
 </article>

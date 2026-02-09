@@ -1,6 +1,4 @@
-<article
-  class="border rounded-lg border-zinc-900 bg-zinc-950 shadow-md flex flex-col gap-2 items-center justify-center max-w-md p-4"
->
+<app-card>
   <div class="text-center pt-2">
     <section class="flex gap-2 text-sm">
       <p>{{ mood }}</p>
@@ -13,7 +11,7 @@
     }
   </ul>
   @if (!practice) {
-    <section class="flex items-center justify-center gap-2">
+    <ng-container card-actions>
       <stylized-link
         label="Update"
         [path]="'/verbs/update/' + conjugation.id"
@@ -22,6 +20,6 @@
         label="Delete"
         (click)="confirmDelete()"
       ></stylized-button>
-    </section>
+    </ng-container>
   }
-</article>
+</app-card>

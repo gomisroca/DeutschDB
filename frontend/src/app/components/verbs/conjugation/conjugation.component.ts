@@ -7,10 +7,11 @@ import { NavigationService } from '@services/navigation.service';
 import { VerbsService } from '@services/verbs.service';
 // Types
 import { VerbConjugation } from 'types';
+import { CardComponent } from '@app/components/ui/card/card.component';
 
 @Component({
   selector: 'verbs-conjugation',
-  imports: [LinkComponent, ButtonComponent],
+  imports: [LinkComponent, ButtonComponent, CardComponent],
   templateUrl: './conjugation.component.html',
 })
 export class VerbsConjugationComponent {
@@ -33,12 +34,12 @@ export class VerbsConjugationComponent {
 
   constructor(
     private verbService: VerbsService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
   ) {}
 
   confirmDelete() {
     const confirmed = window.confirm(
-      `Are you sure you want to delete "${this.conjugation?.tense} ${this.conjugation?.mood}"?`
+      `Are you sure you want to delete "${this.conjugation?.tense} ${this.conjugation?.mood}"?`,
     );
 
     if (confirmed && this.conjugation) {

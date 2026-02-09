@@ -1,37 +1,38 @@
 <app-card>
+  <section card-header class="flex gap-2 text-sm items-center justify-center">
+    <p>{{ phrase.topic }}</p>
+    <p>{{ phrase.level }}</p>
+  </section>
   <section card-header>
-    <section class="flex gap-2 text-sm items-center justify-center">
-      <p>{{ phrase.topic }}</p>
-      <p>{{ phrase.level }}</p>
-    </section>
-    <section class="flex gap-1 flex-col items-center justify-center">
-      <div class="flex gap-2 items-center justify-center">
-        <img
-          src="https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png"
-          alt="Flag of Germany"
-          class="inline-block w-5"
-        />
-        <h1 class="text-2xl font-bold">
-          {{ phrase.original }}
-        </h1>
-      </div>
-      <div class="flex gap-2 items-center justify-center">
-        <img
-          src="https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png"
-          alt="Flag of Germany"
-          class="inline-block w-5"
-        />
-        <h1 class="text-2xl font-bold">
-          {{ phrase.translation }}
-        </h1>
-      </div>
-    </section>
+    <div class="flex gap-2 items-center justify-center">
+      <img
+        src="https://em-content.zobj.net/source/twitter/408/flag-germany_1f1e9-1f1ea.png"
+        alt="Flag of Germany"
+        class="inline-block w-5"
+      />
+      <h1 class="text-2xl font-bold">
+        {{ phrase.original }}
+      </h1>
+    </div>
+    <div class="flex gap-2 items-center justify-center">
+      <img
+        src="https://em-content.zobj.net/source/twitter/408/flag-united-kingdom_1f1ec-1f1e7.png"
+        alt="Flag of Germany"
+        class="inline-block w-5"
+      />
+      <h1 class="text-2xl font-bold">
+        {{ phrase.translation }}
+      </h1>
+    </div>
   </section>
-  <section card-actions>
-    <stylized-link
-      label="Update"
-      [path]="'/phrases/update/' + phrase.id"
-    ></stylized-link>
-    <stylized-button label="Delete" (click)="confirmDelete()"></stylized-button>
-  </section>
+  <stylized-link
+    card-actions
+    label="Update"
+    [path]="'/phrases/update/' + phrase.id"
+  ></stylized-link>
+  <stylized-button
+    card-actions
+    label="Delete"
+    (click)="confirmDelete()"
+  ></stylized-button>
 </app-card>
