@@ -4,67 +4,63 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import { GrammarService } from './grammar.service';
-import { GrammarTopic, Level, Prisma } from '@generated/prisma/client';
+import {
+  CreateGrammarDto,
+  FindGrammarQueryDto,
+  UpdateGrammarDto,
+} from './grammar.dto';
 
 @Controller('grammar')
 export class GrammarController {
   constructor(private readonly grammarService: GrammarService) {}
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<GrammarTopic> {
-    return this.grammarService.findOne({ id });
+  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.grammarService.findOne({ id });
   }
 
   @Get()
   async findAll(
     @Query()
-    query: {
-      level?: string;
-      skip?: string;
-      take?: string;
-      cursor?: string;
-    },
-  ): Promise<GrammarTopic[]> {
+    query: FindGrammarQueryDto,
+  ) {
     const { level, skip, take, cursor } = query;
 
-    const where: Prisma.GrammarTopicWhereInput = {};
-    if (level) where.level = level as Level;
-
-    const topics = await this.grammarService.findAll({
-      where,
-      skip: skip ? parseInt(skip, 10) : undefined,
-      take: take ? parseInt(take, 10) : undefined,
+    return await this.grammarService.findAll({
+      where: {
+        ...(level && { level }),
+      },
+      skip,
+      take,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: { id: 'asc' },
     });
-
-    return topics;
   }
 
   @Post()
-  create(
-    @Body()
-    data: Prisma.GrammarTopicCreateInput,
-  ): Promise<GrammarTopic> {
-    return this.grammarService.create(data);
+  async create(@Body() data: CreateGrammarDto) {
+    return await this.grammarService.create(data);
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body()
-    data: Prisma.GrammarTopicUpdateInput,
-  ): Promise<GrammarTopic> {
-    return this.grammarService.update({ where: { id }, data });
+  async update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() data: UpdateGrammarDto,
+  ) {
+    return await this.grammarService.update({
+      where: { id },
+      data,
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
-    return this.grammarService.remove({ id });
+  async remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.grammarService.remove({ id });
   }
 }

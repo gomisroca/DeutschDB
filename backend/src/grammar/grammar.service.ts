@@ -13,88 +13,58 @@ export class GrammarService {
   async findOne(
     where: Prisma.GrammarTopicWhereUniqueInput,
   ): Promise<GrammarTopic> {
-    try {
-      return await this.prisma.grammarTopic.findUniqueOrThrow({
-        where,
-      });
-    } catch {
-      throw new NotFoundException('Grammar topic by given ID does not exist');
-    }
+    return await this.prisma.grammarTopic.findUniqueOrThrow({
+      where,
+    });
   }
 
-  async findAll(params: {
-    skip?: number;
-    take?: number;
-    cursor?: Prisma.GrammarTopicWhereUniqueInput;
-    where?: Prisma.GrammarTopicWhereInput;
-    orderBy?: Prisma.GrammarTopicOrderByWithRelationInput;
-  }): Promise<GrammarTopic[]> {
-    try {
-      const { skip, take, cursor, where, orderBy } = params;
-      return this.prisma.grammarTopic.findMany({
-        skip,
-        take,
-        cursor,
-        where,
-        orderBy,
-      });
-    } catch {
-      throw new NotFoundException(
-        'No grammar topics found by given parameters',
-      );
-    }
+  async findAll(
+    params: Prisma.GrammarTopicFindManyArgs,
+  ): Promise<GrammarTopic[]> {
+    return await this.prisma.grammarTopic.findMany(params);
   }
 
   async create(data: Prisma.GrammarTopicCreateInput): Promise<GrammarTopic> {
     try {
-      const existingTopic = await this.prisma.grammarTopic.findFirst({
-        where: {
-          title: data.title,
-        },
-      });
-      if (existingTopic) throw new Error('Grammar topic already exists');
-
-      return this.prisma.grammarTopic.create({
-        data,
-      });
-    } catch {
-      throw new ConflictException('Grammar topic already exists');
+      return await this.prisma.grammarTopic.create({ data });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException('Grammar topic already exists');
+      }
+      throw error;
     }
   }
 
-  async update(params: {
-    where: Prisma.GrammarTopicWhereUniqueInput;
-    data: Prisma.GrammarTopicUpdateInput;
-  }): Promise<GrammarTopic> {
+  async update(params: Prisma.GrammarTopicUpdateArgs): Promise<GrammarTopic> {
     try {
-      const { where, data } = params;
-
-      await this.prisma.grammarTopic.findUniqueOrThrow({
-        where,
-      });
-
-      return this.prisma.grammarTopic.update({
-        where,
-        data,
-      });
-    } catch {
-      throw new NotFoundException('Grammar topic by given ID does not exist');
+      return await this.prisma.grammarTopic.update(params);
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException('Grammar topic not found');
+      }
+      throw error;
     }
   }
 
   async remove(where: Prisma.GrammarTopicWhereUniqueInput): Promise<void> {
     try {
-      await this.prisma.grammarTopic.findUniqueOrThrow({
-        where,
-      });
-
       await this.prisma.grammarTopic.delete({
         where,
       });
-
-      return Promise.resolve();
-    } catch {
-      throw new NotFoundException('Grammar topic by given ID does not exist');
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException('Grammar topic not found');
+      }
+      throw error;
     }
   }
 }
