@@ -11,86 +11,56 @@ export class WordsService {
   constructor(private prisma: PrismaService) {}
 
   async findOne(where: Prisma.WordWhereUniqueInput): Promise<Word> {
-    try {
-      return await this.prisma.word.findUniqueOrThrow({
-        where,
-      });
-    } catch {
-      throw new NotFoundException('Word by given ID does not exist');
-    }
+    return await this.prisma.word.findUniqueOrThrow({
+      where,
+    });
   }
 
-  async findAll(params: {
-    skip?: number;
-    take?: number;
-    cursor?: Prisma.WordWhereUniqueInput;
-    where?: Prisma.WordWhereInput;
-    orderBy?: Prisma.WordOrderByWithRelationInput;
-  }): Promise<Word[]> {
-    try {
-      const { skip, take, cursor, where, orderBy } = params;
-      return this.prisma.word.findMany({
-        skip,
-        take,
-        cursor,
-        where,
-        orderBy,
-      });
-    } catch {
-      throw new NotFoundException('No words found by given parameters');
-    }
+  async findAll(params: Prisma.WordFindManyArgs): Promise<Word[]> {
+    return this.prisma.word.findMany(params);
   }
 
   async create(data: Prisma.WordCreateInput): Promise<Word> {
     try {
-      const existingWord = await this.prisma.word.findFirst({
-        where: {
-          word: data.word,
-        },
-      });
-      if (existingWord) throw new Error('Word already exists');
-
-      return this.prisma.word.create({
-        data,
-      });
-    } catch {
-      throw new ConflictException('Word already exists');
+      return await this.prisma.word.create({ data });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException('Word already exists');
+      }
+      throw error;
     }
   }
 
-  async update(params: {
-    where: Prisma.WordWhereUniqueInput;
-    data: Prisma.WordUpdateInput;
-  }): Promise<Word> {
+  async update(params: Prisma.WordUpdateArgs): Promise<Word> {
     try {
-      const { where, data } = params;
-
-      await this.prisma.word.findUniqueOrThrow({
-        where,
-      });
-
-      return this.prisma.word.update({
-        where,
-        data,
-      });
-    } catch {
-      throw new NotFoundException('Word by given ID does not exist');
+      return await this.prisma.word.update(params);
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException('Word not found');
+      }
+      throw error;
     }
   }
 
   async remove(where: Prisma.WordWhereUniqueInput): Promise<void> {
     try {
-      await this.prisma.word.findUniqueOrThrow({
-        where,
-      });
-
       await this.prisma.word.delete({
         where,
       });
-
-      return Promise.resolve();
-    } catch {
-      throw new NotFoundException('Word by given ID does not exist');
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException('Word not found');
+      }
+      throw error;
     }
   }
 }
