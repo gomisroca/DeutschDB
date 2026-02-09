@@ -4,77 +4,63 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import { PhrasesService } from './phrases.service';
-import { Level, Prisma, Phrase } from '@generated/prisma/client';
+import {
+  CreatePhraseDto,
+  FindPhrasesQueryDto,
+  UpdatePhraseDto,
+} from './phrases.dto';
 
 @Controller('phrases')
 export class PhrasesController {
   constructor(private readonly phrasesService: PhrasesService) {}
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Phrase> {
+  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.phrasesService.findOne({ id });
   }
 
   @Get()
   async findAll(
     @Query()
-    query: {
-      level?: string;
-      skip?: string;
-      take?: string;
-      cursor?: string;
-    },
-  ): Promise<Phrase[]> {
+    query: FindPhrasesQueryDto,
+  ) {
     const { level, skip, take, cursor } = query;
 
-    const where: Prisma.PhraseWhereInput = {};
-    if (level) where.level = level as Level;
-
-    const phrases = await this.phrasesService.findAll({
-      where,
-      skip: skip ? parseInt(skip, 10) : undefined,
-      take: take ? parseInt(take, 10) : undefined,
+    return this.phrasesService.findAll({
+      where: {
+        ...(level && { level }),
+      },
+      skip,
+      take,
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: { id: 'asc' },
     });
-
-    return phrases;
   }
 
   @Post()
-  create(
-    @Body()
-    data: {
-      topic: string;
-      level: Level;
-      original: string;
-      translation: string;
-    },
-  ): Promise<Phrase> {
+  create(@Body() data: CreatePhraseDto) {
     return this.phrasesService.create(data);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
-    @Body()
-    data: {
-      topic?: string;
-      level?: Level;
-      original?: string;
-      translation?: string;
-    },
-  ): Promise<Phrase> {
-    return this.phrasesService.update({ where: { id }, data });
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() data: UpdatePhraseDto,
+  ) {
+    return this.phrasesService.update({
+      where: { id },
+      data,
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.phrasesService.remove({ id });
   }
 }
