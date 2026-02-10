@@ -26,7 +26,7 @@ export class WordsUpdateComponent {
 
   constructor(
     private wordsService: WordsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class WordsUpdateComponent {
 
     this.form.id = id;
 
-    this.wordsService.getUnique(id).subscribe((word) => {
+    this.wordsService.getById(id).subscribe((word) => {
       this.form = {
         ...word,
         examplesInput: word.examples.join(','),
@@ -50,8 +50,7 @@ export class WordsUpdateComponent {
       .filter((example) => example.length > 0);
 
     this.wordsService
-      .update({
-        id: this.form.id,
+      .update(this.form.id, {
         word: this.form.word,
         type: this.form.type,
         gender: this.form.gender,

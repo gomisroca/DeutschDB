@@ -17,6 +17,6 @@ export class WordsComponent {
   private wordsService = inject(WordsService);
 
   constructor() {
-    this.words = this.wordsService.get();
+    this.words = this.wordsService.getAll();
   }
 }

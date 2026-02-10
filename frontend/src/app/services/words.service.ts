@@ -3,35 +3,39 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { Word } from 'types';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WordsService {
   private http = inject(HttpClient);
+  private baseUrl = `${environment.API_URL}/words`;
 
-  getUnique(id: string): Observable<Word> {
-    return this.http.get<Word>(environment.API_URL + '/words/' + id);
+  getById(id: string): Observable<Word> {
+    return this.http.get<Word>(`${this.baseUrl}/${id}`);
   }
 
-  get(): Observable<Word[]> {
-    return this.http.get<Word[]>(environment.API_URL + '/words');
-  }
-
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(environment.API_URL + '/words/' + id);
+  getAll(params?: {
+    type?: string;
+    level?: string;
+    skip?: number;
+    take?: number;
+    cursor?: string;
+  }): Observable<Word[]> {
+    return this.http.get<Word[]>(this.baseUrl, { params });
   }
 
   create(data: Omit<Word, 'id'>): Observable<Word> {
-    return this.http.post<Word>(environment.API_URL + '/words', data);
+    return this.http.post<Word>(this.baseUrl, data);
   }
 
-  update(data: Word): Observable<Word> {
-    return this.http.patch<Word>(
-      environment.API_URL + '/words/' + data.id,
-      data
-    );
+  update(id: string, data: Partial<Omit<Word, 'id'>>): Observable<Word> {
+    return this.http.patch<Word>(`${this.baseUrl}/${id}`, data);
   }
 
-  constructor() {}
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }
