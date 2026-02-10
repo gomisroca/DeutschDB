@@ -6,10 +6,17 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
+import { ToastContainerComponent } from './toast/toast.component';
 
 @Component({
   selector: 'root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    CommonModule,
+    ToastContainerComponent,
+  ],
   templateUrl: './app.component.html',
 })
 export class AppComponent {

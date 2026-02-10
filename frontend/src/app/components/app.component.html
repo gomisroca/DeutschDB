@@ -4,24 +4,25 @@
       class="flex flex-row items-center justify-center max-w-screen overflow-x-hidden bg-zinc-900"
     >
       @for (link of links; track link.path) {
-      <li class="w-fit flex items-center justify-center">
-        <a
-          [ngClass]="{
-            'bg-transparent hover:bg-blue-500 active:bg-blue-700 hover:font-semibold transition-all duration-300 px-4 hover:px-6 text-center':
-              segment !== link.path,
-            'bg-blue-700  pointer-events-none font-semibold px-2':
-              segment === link.path
-          }"
-          class="py-2"
-          [routerLink]="link.path"
-          routerLinkActive="active"
-          ariaCurrentWhenActive="page"
-          >{{ link.label }}</a
-        >
-      </li>
+        <li class="w-fit flex items-center justify-center">
+          <a
+            [ngClass]="{
+              'bg-transparent hover:bg-blue-500 active:bg-blue-700 hover:font-semibold transition-all duration-300 px-4 hover:px-6 text-center':
+                segment !== link.path,
+              'bg-blue-700  pointer-events-none font-semibold px-2':
+                segment === link.path,
+            }"
+            class="py-2"
+            [routerLink]="link.path"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >{{ link.label }}</a
+          >
+        </li>
       }
     </ul>
   </nav>
 
   <section class="p-4"><router-outlet /></section>
+  <app-toast-container></app-toast-container>
 </main>
