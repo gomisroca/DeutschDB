@@ -9,29 +9,33 @@ import { GrammarTopic } from 'types';
 })
 export class GrammarService {
   private http = inject(HttpClient);
+  private baseUrl = `${environment.API_URL}/grammar`;
 
-  getUnique(id: string): Observable<GrammarTopic> {
-    return this.http.get<GrammarTopic>(environment.API_URL + '/grammar/' + id);
+  getById(id: string): Observable<GrammarTopic> {
+    return this.http.get<GrammarTopic>(`${this.baseUrl}/${id}`);
   }
 
-  get(): Observable<GrammarTopic[]> {
-    return this.http.get<GrammarTopic[]>(environment.API_URL + '/grammar');
-  }
-
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(environment.API_URL + '/grammar/' + id);
+  getAll(params?: {
+    level?: string;
+    skip?: number;
+    take?: number;
+    cursor?: string;
+  }): Observable<GrammarTopic[]> {
+    return this.http.get<GrammarTopic[]>(this.baseUrl, { params });
   }
 
   create(data: Omit<GrammarTopic, 'id'>): Observable<GrammarTopic> {
-    return this.http.post<GrammarTopic>(environment.API_URL + '/grammar', data);
+    return this.http.post<GrammarTopic>(this.baseUrl, data);
   }
 
-  update(data: GrammarTopic): Observable<GrammarTopic> {
-    return this.http.patch<GrammarTopic>(
-      environment.API_URL + '/grammar/' + data.id,
-      data
-    );
+  update(
+    id: string,
+    data: Partial<Omit<GrammarTopic, 'id'>>,
+  ): Observable<GrammarTopic> {
+    return this.http.patch<GrammarTopic>(`${this.baseUrl}/${id}`, data);
   }
 
-  constructor() {}
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }

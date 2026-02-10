@@ -17,6 +17,6 @@ export class GrammarComponent {
   private grammarService = inject(GrammarService);
 
   constructor() {
-    this.topics = this.grammarService.get();
+    this.topics = this.grammarService.getAll();
   }
 }

@@ -22,7 +22,7 @@ export class GrammarUpdateComponent {
 
   constructor(
     private grammarService: GrammarService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class GrammarUpdateComponent {
 
     this.form.id = id;
 
-    this.grammarService.getUnique(id).subscribe((topic) => {
+    this.grammarService.getById(id).subscribe((topic) => {
       this.form = {
         ...topic,
         examplesInput: topic.examples.join(','),
@@ -46,8 +46,7 @@ export class GrammarUpdateComponent {
       .filter((example) => example.length > 0);
 
     this.grammarService
-      .update({
-        id: this.form.id,
+      .update(this.form.id, {
         title: this.form.title,
         body: this.form.body,
         level: this.form.level,
