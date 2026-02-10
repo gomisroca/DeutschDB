@@ -21,7 +21,7 @@ export class VerbsUpdateComponent {
 
   constructor(
     private verbsService: VerbsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class VerbsUpdateComponent {
 
     this.form.id = id;
 
-    this.verbsService.getUniqueConjugation(id).subscribe((conjugation) => {
+    this.verbsService.getById(id).subscribe((conjugation) => {
       this.form = {
         ...conjugation,
         formsInput: conjugation.forms.join(',') ?? '',
@@ -45,8 +45,7 @@ export class VerbsUpdateComponent {
       .filter((form) => form.length > 0);
 
     this.verbsService
-      .update({
-        id: this.form.id,
+      .update(this.form.id, {
         tense: this.form.tense,
         mood: this.form.mood,
         forms: this.form.forms,

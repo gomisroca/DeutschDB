@@ -17,6 +17,6 @@ export class VerbsComponent {
   private verbsService = inject(VerbsService);
 
   constructor() {
-    this.verbs = this.verbsService.get();
+    this.verbs = this.verbsService.getAll();
   }
 }

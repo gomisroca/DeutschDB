@@ -9,31 +9,34 @@ import { VerbConjugation, Verb } from 'types';
 })
 export class VerbsService {
   private http = inject(HttpClient);
+  private baseUrl = `${environment.API_URL}/verbs`;
 
-  getUniqueConjugation(id: string): Observable<VerbConjugation> {
-    return this.http.get<VerbConjugation>(environment.API_URL + '/verbs/' + id);
+  getById(id: string): Observable<VerbConjugation> {
+    return this.http.get<VerbConjugation>(`${this.baseUrl}/${id}`);
   }
 
-  get(): Observable<Verb[]> {
-    return this.http.get<Verb[]>(environment.API_URL + '/verbs');
-  }
-
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(environment.API_URL + '/verbs/' + id);
+  getAll(params?: {
+    skip?: number;
+    take?: number;
+    cursor?: string;
+  }): Observable<Verb[]> {
+    return this.http.get<Verb[]>(this.baseUrl, { params });
   }
 
   create(
-    data: Omit<VerbConjugation, 'id'> & { verbName: string }
+    data: Omit<VerbConjugation, 'id'> & { verbName: string },
   ): Observable<Verb> {
-    return this.http.post<Verb>(environment.API_URL + '/verbs', data);
+    return this.http.post<Verb>(this.baseUrl, data);
   }
 
-  update(data: VerbConjugation): Observable<Verb> {
-    return this.http.patch<Verb>(
-      environment.API_URL + '/verbs/' + data.id,
-      data
-    );
+  update(
+    id: string,
+    data: Partial<Omit<VerbConjugation, 'id'>>,
+  ): Observable<Verb> {
+    return this.http.patch<Verb>(`${this.baseUrl}/${id}`, data);
   }
 
-  constructor() {}
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }
