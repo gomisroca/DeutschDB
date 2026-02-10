@@ -9,29 +9,25 @@ import { Phrase } from 'types';
 })
 export class PhrasesService {
   private http = inject(HttpClient);
+  private baseUrl = `${environment.API_URL}/phrases`;
 
-  getUnique(id: string): Observable<Phrase> {
-    return this.http.get<Phrase>(environment.API_URL + '/phrases/' + id);
+  getById(id: string): Observable<Phrase> {
+    return this.http.get<Phrase>(`${this.baseUrl}/${id}`);
   }
 
-  get(): Observable<Phrase[]> {
-    return this.http.get<Phrase[]>(environment.API_URL + '/phrases');
-  }
-
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(environment.API_URL + '/phrases/' + id);
+  getAll(): Observable<Phrase[]> {
+    return this.http.get<Phrase[]>(this.baseUrl);
   }
 
   create(data: Omit<Phrase, 'id'>): Observable<Phrase> {
-    return this.http.post<Phrase>(environment.API_URL + '/phrases', data);
+    return this.http.post<Phrase>(this.baseUrl, data);
   }
 
-  update(data: Phrase): Observable<Phrase> {
-    return this.http.patch<Phrase>(
-      environment.API_URL + '/phrases/' + data.id,
-      data
-    );
+  update(id: string, data: Partial<Omit<Phrase, 'id'>>): Observable<Phrase> {
+    return this.http.patch<Phrase>(`${this.baseUrl}/${id}`, data);
   }
 
-  constructor() {}
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }

@@ -21,7 +21,7 @@ export class PhrasesUpdateComponent {
 
   constructor(
     private phrasesService: PhrasesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -30,15 +30,14 @@ export class PhrasesUpdateComponent {
 
     this.form.id = id;
 
-    this.phrasesService.getUnique(id).subscribe((phrase) => {
+    this.phrasesService.getById(id).subscribe((phrase) => {
       this.form = phrase;
     });
   }
 
   onSubmit(): void {
     this.phrasesService
-      .update({
-        id: this.form.id,
+      .update(this.form.id, {
         topic: this.form.topic,
         level: this.form.level,
         original: this.form.original,
