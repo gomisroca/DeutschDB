@@ -15,8 +15,13 @@ export class PhrasesService {
     return this.http.get<Phrase>(`${this.baseUrl}/${id}`);
   }
 
-  getAll(): Observable<Phrase[]> {
-    return this.http.get<Phrase[]>(this.baseUrl);
+  getAll(params?: {
+    level?: string;
+    skip?: number;
+    take?: number;
+    cursor?: string;
+  }): Observable<Phrase[]> {
+    return this.http.get<Phrase[]>(this.baseUrl, { params });
   }
 
   create(data: Omit<Phrase, 'id'>): Observable<Phrase> {
