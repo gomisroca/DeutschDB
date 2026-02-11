@@ -1,66 +1,49 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Phrase, Prisma } from '@generated/prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { BaseService } from 'src/base/base.service';
+import { FindPhrasesQueryDto } from './phrases.dto';
 
 @Injectable()
-export class PhrasesService {
-  constructor(private prisma: PrismaService) {}
+export class PhrasesService extends BaseService<
+  Phrase,
+  Prisma.PhraseFindManyArgs,
+  Prisma.PhraseWhereUniqueInput,
+  Prisma.PhraseCreateInput,
+  Prisma.PhraseUpdateArgs
+> {
+  constructor(prisma: PrismaService) {
+    super(prisma.phrase);
+  }
 
   async findOne(where: Prisma.PhraseWhereUniqueInput): Promise<Phrase> {
-    return await this.prisma.phrase.findUniqueOrThrow({
-      where,
+    return await super.findOne(where);
+  }
+
+  async findAll(queryDto: FindPhrasesQueryDto) {
+    return super.findAll({
+      take: queryDto.take,
+      skip: queryDto.skip,
+      cursor: queryDto.cursor,
+      includeTotal: true,
+      query: {
+        where: {
+          ...(queryDto.level && { level: queryDto.level }),
+        },
+        orderBy: { id: 'asc' },
+      },
     });
   }
 
-  async findAll(params: Prisma.PhraseFindManyArgs): Promise<Phrase[]> {
-    return await this.prisma.phrase.findMany(params);
-  }
-
   async create(data: Prisma.PhraseCreateInput): Promise<Phrase> {
-    try {
-      return await this.prisma.phrase.create({ data });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
-        throw new ConflictException('Phrase already exists');
-      }
-      throw error;
-    }
+    return await super.create(data);
   }
 
   async update(params: Prisma.PhraseUpdateArgs): Promise<Phrase> {
-    try {
-      return await this.prisma.phrase.update(params);
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new NotFoundException('Phrase not found');
-      }
-      throw error;
-    }
+    return await super.update(params);
   }
 
   async remove(where: Prisma.PhraseWhereUniqueInput): Promise<void> {
-    try {
-      await this.prisma.phrase.delete({
-        where,
-      });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new NotFoundException('Phrase not found');
-      }
-      throw error;
-    }
+    return await super.remove(where);
   }
 }

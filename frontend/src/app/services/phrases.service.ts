@@ -1,38 +1,14 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '@environments/environment';
+import { Injectable } from '@angular/core';
 import { Phrase } from 'types';
+import { ApiService } from './api.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class PhrasesService {
-  private http = inject(HttpClient);
-  private baseUrl = `${environment.API_URL}/phrases`;
-
-  getById(id: string): Observable<Phrase> {
-    return this.http.get<Phrase>(`${this.baseUrl}/${id}`);
-  }
-
-  getAll(params?: {
-    level?: string;
-    skip?: number;
-    take?: number;
-    cursor?: string;
-  }): Observable<Phrase[]> {
-    return this.http.get<Phrase[]>(this.baseUrl, { params });
-  }
-
-  create(data: Omit<Phrase, 'id'>): Observable<Phrase> {
-    return this.http.post<Phrase>(this.baseUrl, data);
-  }
-
-  update(id: string, data: Partial<Omit<Phrase, 'id'>>): Observable<Phrase> {
-    return this.http.patch<Phrase>(`${this.baseUrl}/${id}`, data);
-  }
-
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
-  }
+interface PhrasesQuery {
+  level?: string;
+  skip?: number;
+  take?: number;
+  cursor?: string;
+}
+@Injectable({ providedIn: 'root' })
+export class PhrasesService extends ApiService<Phrase, PhrasesQuery> {
+  protected endpoint = 'phrases';
 }
