@@ -1,12 +1,4 @@
-import {
-  IsEnum,
-  IsOptional,
-  IsString,
-  IsArray,
-  IsInt,
-  Min,
-} from 'class-validator';
-import { VerbMood, VerbTense } from '@generated/prisma/client';
+import { IsOptional, IsString, IsInt, Min } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 import { Type } from 'class-transformer';
 
@@ -29,17 +21,7 @@ export class FindVerbsQueryDto {
 
 export class CreateVerbDto {
   @IsString()
-  verbName: string;
-
-  @IsEnum(VerbTense)
-  tense: VerbTense;
-
-  @IsEnum(VerbMood)
-  mood: VerbMood;
-
-  @IsArray()
-  @IsString({ each: true })
-  forms: string[];
+  name: string;
 }
 
 export class UpdateVerbDto extends PartialType(CreateVerbDto) {}
