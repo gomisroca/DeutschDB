@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { VerbsService } from '@services/verbs.service';
+import { ConjugationsService } from '@app/services/conjugations.service';
 import { VerbConjugation } from 'types';
 
 @Component({
@@ -20,7 +20,7 @@ export class VerbsUpdateComponent {
   };
 
   constructor(
-    private verbsService: VerbsService,
+    private conjugationsService: ConjugationsService,
     private route: ActivatedRoute,
   ) {}
 
@@ -30,7 +30,7 @@ export class VerbsUpdateComponent {
 
     this.form.id = id;
 
-    this.verbsService.getById(id).subscribe((conjugation) => {
+    this.conjugationsService.getById(id).subscribe((conjugation) => {
       this.form = {
         ...conjugation,
         formsInput: conjugation.forms.join(',') ?? '',
@@ -44,14 +44,14 @@ export class VerbsUpdateComponent {
       .map((form) => form.trim())
       .filter((form) => form.length > 0);
 
-    this.verbsService
+    this.conjugationsService
       .update(this.form.id, {
         tense: this.form.tense,
         mood: this.form.mood,
         forms: this.form.forms,
       })
-      .subscribe((verb) => {
-        console.log('Updated verb:', verb);
+      .subscribe((conjugation) => {
+        console.log('Updated verb conjugation:', conjugation);
       });
   }
 }

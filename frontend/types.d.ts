@@ -20,7 +20,7 @@ export type VerbConjugation = {
 export type Verb = {
   id: string;
   verb: string;
-  conjugations: VerbConjugation[];
+  conjugations?: VerbConjugation[];
 };
 
 export type GrammarTopic = {

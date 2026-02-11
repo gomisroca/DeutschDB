@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ConjugationsService } from '@app/services/conjugations.service';
 import { VerbsService } from '@app/services/verbs.service';
 import { VerbConjugation } from 'types';
 
@@ -20,6 +21,7 @@ export class VerbsCreateComponent {
     };
 
   private verbsService = inject(VerbsService);
+  private conjugationsService = inject(ConjugationsService);
 
   onSubmit() {
     this.form.forms = this.form.formsInput
@@ -29,13 +31,17 @@ export class VerbsCreateComponent {
 
     this.verbsService
       .create({
-        verbName: this.form.verbName,
-        tense: this.form.tense,
-        mood: this.form.mood,
-        forms: this.form.forms,
+        verb: this.form.verbName,
       })
-      .subscribe((word) => {
-        console.log('Created word:', word);
+      .subscribe((verb) => {
+        console.log('Created verb:', verb);
       });
+
+    this.conjugationsService.create({
+      verbName: this.form.verbName,
+      tense: this.form.tense,
+      mood: this.form.mood,
+      forms: this.form.forms,
+    });
   }
 }
