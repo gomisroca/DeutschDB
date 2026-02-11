@@ -21,11 +21,7 @@ export class WordsService extends BaseService<
   }
 
   async findAll(queryDto: FindWordsQueryDto) {
-    return super.findAll({
-      take: queryDto.take,
-      skip: queryDto.skip,
-      cursor: queryDto.cursor,
-      includeTotal: true,
+    return await super.findAll({
       query: {
         where: {
           ...(queryDto.type && { type: queryDto.type }),
@@ -36,6 +32,20 @@ export class WordsService extends BaseService<
     });
   }
 
+  async findPaginated(queryDto: FindWordsQueryDto) {
+    return super.findPaginated({
+      take: queryDto.take,
+      skip: queryDto.skip,
+      cursor: queryDto.cursor,
+      includeTotal: true,
+      query: {
+        where: {
+          ...(queryDto.level && { level: queryDto.level }),
+        },
+        orderBy: { id: 'asc' },
+      },
+    });
+  }
   async create(data: Prisma.WordCreateInput): Promise<Word> {
     return await super.create(data);
   }

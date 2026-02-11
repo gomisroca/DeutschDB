@@ -27,8 +27,16 @@ export class ConjugationsService extends BaseService<
     return await super.findOne(where);
   }
 
-  async findAll(queryDto: FindConjugationsQueryDto) {
+  async findAll() {
     return super.findAll({
+      query: {
+        orderBy: { id: 'asc' },
+      },
+    });
+  }
+
+  async findPaginated(queryDto: FindConjugationsQueryDto) {
+    return super.findPaginated({
       take: queryDto.take,
       skip: queryDto.skip,
       cursor: queryDto.cursor,

@@ -48,6 +48,16 @@ export abstract class BaseService<
     cursor?: any;
     includeTotal?: boolean;
   }) {
+    return await this.model.findMany(params.query);
+  }
+
+  async findPaginated(params: {
+    query: FindManyArgs;
+    skip?: number;
+    take?: number;
+    cursor?: any;
+    includeTotal?: boolean;
+  }) {
     return paginate({
       model: this.model,
       ...params,

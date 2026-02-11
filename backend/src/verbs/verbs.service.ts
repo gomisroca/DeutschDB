@@ -20,14 +20,28 @@ export class VerbsService extends BaseService<
     return await super.findOne(where);
   }
 
-  async findAll(queryDto: FindVerbsQueryDto) {
+  async findAll() {
     return super.findAll({
+      query: {
+        orderBy: { id: 'asc' },
+        include: {
+          conjugations: true,
+        },
+      },
+    });
+  }
+
+  async findPaginated(queryDto: FindVerbsQueryDto) {
+    return super.findPaginated({
       take: queryDto.take,
       skip: queryDto.skip,
       cursor: queryDto.cursor,
       includeTotal: true,
       query: {
         orderBy: { id: 'asc' },
+        include: {
+          conjugations: true,
+        },
       },
     });
   }

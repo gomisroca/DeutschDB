@@ -9,7 +9,7 @@ interface PaginationParams {
   cursor?: string;
 }
 
-interface PaginatedResponse<T> {
+export interface PaginatedResponse<T> {
   data: T[];
   total?: number;
   nextCursor?: string;
@@ -47,7 +47,7 @@ export abstract class ApiService<
   // ---------- Unpaginated ----------
 
   getAll(params?: TQuery & PaginationParams): Observable<T[]> {
-    return this.http.get<T[]>(this.baseUrl, { params });
+    return this.http.get<T[]>(`${this.baseUrl}`, { params });
   }
 
   // ---------- Paginated ----------
@@ -55,6 +55,8 @@ export abstract class ApiService<
   getPaginated(
     params?: TQuery & PaginationParams,
   ): Observable<PaginatedResponse<T>> {
-    return this.http.get<PaginatedResponse<T>>(this.baseUrl, { params });
+    return this.http.get<PaginatedResponse<T>>(`${this.baseUrl}/paginated`, {
+      params,
+    });
   }
 }

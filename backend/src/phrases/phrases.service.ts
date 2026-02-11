@@ -21,7 +21,18 @@ export class PhrasesService extends BaseService<
   }
 
   async findAll(queryDto: FindPhrasesQueryDto) {
-    return super.findAll({
+    return await super.findAll({
+      query: {
+        where: {
+          ...(queryDto.level && { level: queryDto.level }),
+        },
+        orderBy: { id: 'asc' },
+      },
+    });
+  }
+
+  async findPaginated(queryDto: FindPhrasesQueryDto) {
+    return super.findPaginated({
       take: queryDto.take,
       skip: queryDto.skip,
       cursor: queryDto.cursor,

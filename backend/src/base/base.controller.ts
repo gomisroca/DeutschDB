@@ -30,6 +30,12 @@ export abstract class BaseController<
     return this.service.findAll(query as any);
   }
 
+  @Get('paginated')
+  async findPaginated(@Query() query: QueryDto) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return this.service.findPaginated(query as any);
+  }
+
   @Post()
   async create(@Body() data: CreateDto) {
     return this.service.create(data as any);
