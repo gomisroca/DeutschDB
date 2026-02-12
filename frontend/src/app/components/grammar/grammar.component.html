@@ -6,9 +6,13 @@
   <!-- List of topics -->
   <main>
     <ul class="flex flex-wrap gap-4 items-center justify-center">
-      @for (topic of topics | async; track topic.id) {
-      <li><grammar-card [topic]="topic"></grammar-card></li>
+      @for (topic of paginator.data; track topic.id) {
+        <li><grammar-card [topic]="topic"></grammar-card></li>
       }
     </ul>
+
+    @if (paginator.nextCursor) {
+      <button (click)="paginator.load()">Load more</button>
+    }
   </main>
 </div>

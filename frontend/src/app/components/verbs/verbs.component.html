@@ -3,11 +3,15 @@
   <!-- List of verbs -->
   <main>
     <ul class="flex flex-wrap gap-4 items-center justify-center">
-      @for (verb of verbs | async; track verb.id) {
-      <li>
-        <verbs-card [verb]="verb"></verbs-card>
-      </li>
+      @for (verb of paginator.data; track verb.id) {
+        <li>
+          <verbs-card [verb]="verb"></verbs-card>
+        </li>
       }
     </ul>
+
+    @if (paginator.nextCursor) {
+      <button (click)="paginator.load()">Load more</button>
+    }
   </main>
 </div>

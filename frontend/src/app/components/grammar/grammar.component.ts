@@ -1,22 +1,24 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { GrammarService } from '@services/grammar.service';
-import { Observable } from 'rxjs';
 import { GrammarTopic } from 'types';
 import { LinkComponent } from '@components/ui/link/link.component';
 import { GrammarCardComponent } from './card/card.component';
+import { CursorPaginator } from '@app/utils/pagination/cursor-pagination.util';
 
 @Component({
   selector: 'grammar',
   standalone: true,
-  imports: [AsyncPipe, GrammarCardComponent, LinkComponent],
+  imports: [GrammarCardComponent, LinkComponent],
   templateUrl: './grammar.component.html',
 })
 export class GrammarComponent {
-  topics: Observable<GrammarTopic[]>;
   private grammarService = inject(GrammarService);
 
-  constructor() {
-    this.topics = this.grammarService.getAll();
+  paginator = new CursorPaginator<GrammarTopic>((params) =>
+    this.grammarService.getPaginated(params),
+  );
+
+  ngOnInit() {
+    this.paginator.load();
   }
 }

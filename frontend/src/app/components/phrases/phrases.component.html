@@ -3,9 +3,13 @@
   <!-- List of words -->
   <main>
     <ul class="flex flex-wrap gap-4 items-center justify-center">
-      @for (phrase of phrases | async; track phrase.id) {
-      <li><phrases-card [phrase]="phrase"></phrases-card></li>
+      @for (phrase of paginator.data; track phrase.id) {
+        <li><phrases-card [phrase]="phrase"></phrases-card></li>
       }
     </ul>
+
+    @if (paginator.nextCursor) {
+      <button (click)="paginator.load()">Load more</button>
+    }
   </main>
 </div>
