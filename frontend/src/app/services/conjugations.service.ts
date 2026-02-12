@@ -3,19 +3,10 @@ import { VerbConjugation } from 'types';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 
-interface ConjugationQuery {
-  skip?: number;
-  take?: number;
-  cursor?: string;
-}
-
 @Injectable({
   providedIn: 'root',
 })
-export class ConjugationsService extends ApiService<
-  VerbConjugation,
-  ConjugationQuery
-> {
+export class ConjugationsService extends ApiService<VerbConjugation> {
   protected endpoint = 'conjugations';
 
   override create(

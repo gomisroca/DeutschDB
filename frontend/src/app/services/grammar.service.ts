@@ -4,9 +4,6 @@ import { ApiService } from './api.service';
 
 interface GrammarQuery {
   level?: string;
-  skip?: number;
-  take?: number;
-  cursor?: string;
 }
 
 @Injectable({ providedIn: 'root' })

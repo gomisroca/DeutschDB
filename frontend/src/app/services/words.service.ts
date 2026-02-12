@@ -5,9 +5,6 @@ import { ApiService } from './api.service';
 interface WordsQuery {
   type?: string;
   level?: string;
-  skip?: number;
-  take?: number;
-  cursor?: string;
 }
 
 @Injectable({ providedIn: 'root' })
