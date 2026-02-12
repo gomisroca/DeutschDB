@@ -43,7 +43,6 @@ export abstract class BaseService<
 
   async findAll(params: {
     query: FindManyArgs;
-    skip?: number;
     take?: number;
     cursor?: any;
     includeTotal?: boolean;
@@ -53,7 +52,6 @@ export abstract class BaseService<
 
   async findPaginated(params: {
     query: FindManyArgs;
-    skip?: number;
     take?: number;
     cursor?: any;
     includeTotal?: boolean;

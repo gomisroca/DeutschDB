@@ -38,7 +38,6 @@ export class ConjugationsService extends BaseService<
   async findPaginated(queryDto: FindConjugationsQueryDto) {
     return super.findPaginated({
       take: queryDto.take,
-      skip: queryDto.skip,
       cursor: queryDto.cursor,
       includeTotal: true,
       query: {

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 
 interface PaginationParams {
-  skip?: number;
   take?: number;
   cursor?: string;
 }

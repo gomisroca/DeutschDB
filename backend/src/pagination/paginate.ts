@@ -6,7 +6,6 @@ interface PaginateOptions<T extends { id: string }> {
   query: { where?: Record<string, unknown> };
   take?: number;
   cursor?: string;
-  skip?: number;
   includeTotal?: boolean;
 }
 

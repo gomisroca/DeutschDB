@@ -34,7 +34,6 @@ export class PhrasesService extends BaseService<
   async findPaginated(queryDto: FindPhrasesQueryDto) {
     return super.findPaginated({
       take: queryDto.take,
-      skip: queryDto.skip,
       cursor: queryDto.cursor,
       includeTotal: true,
       query: {
