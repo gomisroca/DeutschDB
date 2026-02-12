@@ -15,37 +15,30 @@ export async function paginate<T extends { id: string }>({
   query,
   take = 20,
   cursor,
-  skip,
   includeTotal = false,
 }: PaginateOptions<T>) {
-  const data = await model.findMany({
+  const items = await model.findMany({
     ...query,
     take: take + 1,
     cursor: cursor ? { id: cursor } : undefined,
-    skip: cursor ? 1 : skip,
+    orderBy: { id: 'asc' },
   });
 
-  let nextCursor: string | null = null;
+  let nextCursor: string | undefined;
 
-  if (data.length > take) {
-    const nextItem = data.pop();
-
-    if (nextItem) {
-      nextCursor = nextItem.id;
-    }
-  }
-
-  let total: number | undefined;
-
-  if (includeTotal && model.count) {
-    total = await model.count({
-      where: query.where,
-    });
+  if (items.length > take) {
+    const last = items.pop();
+    nextCursor = last?.id;
+  } else {
+    nextCursor = undefined;
   }
 
   return {
-    data,
+    data: items,
     nextCursor,
-    total,
+    total:
+      includeTotal && model.count
+        ? await model.count({ where: query.where })
+        : undefined,
   };
 }
