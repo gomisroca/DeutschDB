@@ -36,7 +36,6 @@ export class GrammarService extends BaseService<
   async findPaginated(queryDto: FindGrammarQueryDto) {
     return super.findPaginated({
       take: queryDto.take,
-      skip: queryDto.skip,
       cursor: queryDto.cursor,
       includeTotal: true,
       query: {
