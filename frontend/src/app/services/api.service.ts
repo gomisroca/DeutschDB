@@ -47,7 +47,12 @@ export abstract class ApiService<
   // ---------- Unpaginated ----------
 
   getAll(params?: TQuery & PaginationParams): Observable<T[]> {
-    return this.http.get<T[]>(`${this.baseUrl}`, { params });
+    const cleanParams = Object.fromEntries(
+      Object.entries(params ?? {}).filter(
+        ([_, v]) => v !== undefined && v !== null,
+      ),
+    );
+    return this.http.get<T[]>(`${this.baseUrl}`, { params: cleanParams });
   }
 
   // ---------- Paginated ----------
@@ -55,8 +60,14 @@ export abstract class ApiService<
   getPaginated(
     params?: TQuery & PaginationParams,
   ): Observable<PaginatedResponse<T>> {
+    const cleanParams = Object.fromEntries(
+      Object.entries(params ?? {}).filter(
+        ([_, v]) => v !== undefined && v !== null,
+      ),
+    );
+
     return this.http.get<PaginatedResponse<T>>(`${this.baseUrl}/paginated`, {
-      params,
+      params: cleanParams,
     });
   }
 }
