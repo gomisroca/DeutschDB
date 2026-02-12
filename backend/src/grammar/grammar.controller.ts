@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { GrammarService } from './grammar.service';
 import {
   CreateGrammarDto,
@@ -18,5 +18,15 @@ export class GrammarController extends BaseController<
 > {
   constructor(service: GrammarService) {
     super(service);
+  }
+
+  @Get()
+  override findAll(@Query() query: FindGrammarQueryDto) {
+    return super.findAll(query);
+  }
+
+  @Get('paginated')
+  override findPaginated(@Query() query: FindGrammarQueryDto) {
+    return super.findPaginated(query);
   }
 }

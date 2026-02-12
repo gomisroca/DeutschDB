@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { VerbsService } from './verbs.service';
 import { CreateVerbDto, FindVerbsQueryDto, UpdateVerbDto } from './verbs.dto';
 import { BaseController } from 'src/base/base.controller';
@@ -14,5 +14,15 @@ export class VerbsController extends BaseController<
 > {
   constructor(service: VerbsService) {
     super(service);
+  }
+
+  @Get()
+  override findAll(@Query() query: FindVerbsQueryDto) {
+    return super.findAll(query);
+  }
+
+  @Get('paginated')
+  override findPaginated(@Query() query: FindVerbsQueryDto) {
+    return super.findPaginated(query);
   }
 }

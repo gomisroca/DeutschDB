@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { PhrasesService } from './phrases.service';
 import {
   CreatePhraseDto,
@@ -18,5 +18,15 @@ export class PhrasesController extends BaseController<
 > {
   constructor(service: PhrasesService) {
     super(service);
+  }
+
+  @Get()
+  override findAll(@Query() query: FindPhrasesQueryDto) {
+    return super.findAll(query);
+  }
+
+  @Get('paginated')
+  override findPaginated(@Query() query: FindPhrasesQueryDto) {
+    return super.findPaginated(query);
   }
 }

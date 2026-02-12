@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ConjugationsService } from './conjugations.service';
 import {
   CreateConjugationDto,
@@ -18,5 +18,15 @@ export class ConjugationsController extends BaseController<
 > {
   constructor(service: ConjugationsService) {
     super(service);
+  }
+
+  @Get()
+  override findAll(@Query() query: FindConjugationsQueryDto) {
+    return super.findAll(query);
+  }
+
+  @Get('paginated')
+  override findPaginated(@Query() query: FindConjugationsQueryDto) {
+    return super.findPaginated(query);
   }
 }
